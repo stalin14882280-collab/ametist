@@ -85,10 +85,6 @@
         .logo h1 i {
             font-size: 22px;
             margin-left: 6px;
-            color: #8b5cf6;
-            background: none;
-            -webkit-background-clip: unset;
-            background-clip: unset;
             color: #a855f7;
         }
 
@@ -490,7 +486,7 @@
             color: #6b7280;
         }
 
-        /* Модалка */
+        /* Модальные окна */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -539,6 +535,22 @@
             margin-bottom: 24px;
         }
 
+        .modal-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(124, 58, 237, 0.2);
+            border-radius: 40px;
+            font-size: 16px;
+            margin-bottom: 24px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .modal-input:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+        }
+
         .modal-actions {
             display: flex;
             gap: 12px;
@@ -568,6 +580,50 @@
 
         .modal-btn:hover {
             transform: translateY(-2px);
+        }
+
+        /* Анимация загрузки в модалке */
+        .loading-steps {
+            margin: 20px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .step.active {
+            opacity: 1;
+        }
+
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f3e8ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7c3aed;
+        }
+
+        .step.active .step-icon {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .step.completed .step-icon {
+            background: #10b981;
+            color: white;
+        }
+
+        .step-text {
+            font-weight: 500;
+            color: #1e1b2b;
         }
 
         /* Тосты */
@@ -630,7 +686,7 @@
             </div>
         </header>
 
-        <!-- Поиск -->
+        <!-- Поиск шаблонов -->
         <section class="search-section">
             <div class="search-header">
                 <h2>Создай презентацию за минуту</h2>
@@ -670,8 +726,8 @@
         </div>
     </div>
 
-    <!-- Модалка -->
-    <div class="modal-overlay" id="modalOverlay">
+    <!-- Модалка выбора шаблона (шаг 1) -->
+    <div class="modal-overlay" id="modalTemplate">
         <div class="modal">
             <h3 id="modalTitle">Выбрать шаблон?</h3>
             <p id="modalMessage">Вы действительно хотите использовать этот шаблон для создания презентации?</p>
@@ -679,6 +735,41 @@
                 <button class="modal-btn secondary" id="modalCancel">Отмена</button>
                 <button class="modal-btn primary" id="modalConfirm">Продолжить</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Модалка ввода темы (шаг 2) -->
+    <div class="modal-overlay" id="modalTopic">
+        <div class="modal">
+            <h3>О чём презентация?</h3>
+            <p>Введите тему, и Ametist сам найдёт информацию в интернете и красиво сверстает слайды</p>
+            <input type="text" class="modal-input" id="topicInput" placeholder="Например: Искусственный интеллект в маркетинге 2026" value="Будущее удалённой работы">
+            <div class="modal-actions">
+                <button class="modal-btn secondary" id="topicCancel">Назад</button>
+                <button class="modal-btn primary" id="topicConfirm">Сгенерировать</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка процесса генерации (шаг 3) -->
+    <div class="modal-overlay" id="modalGenerating">
+        <div class="modal">
+            <h3>Ametist работает над презентацией</h3>
+            <div class="loading-steps">
+                <div class="step" id="step1">
+                    <div class="step-icon"><i class="fas fa-search"></i></div>
+                    <span class="step-text">Поиск информации в интернете...</span>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-icon"><i class="fas fa-file-alt"></i></div>
+                    <span class="step-text">Структурирование слайдов...</span>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-icon"><i class="fas fa-magic"></i></div>
+                    <span class="step-text">Автоматическая вёрстка и дизайн...</span>
+                </div>
+            </div>
+            <p style="text-align: center; color: #6b7280; margin-top: 20px;" id="generatingStatus">Подключаемся к источникам...</p>
         </div>
     </div>
 
@@ -692,6 +783,7 @@
         (function(){
             "use strict";
 
+            // База шаблонов
             const templatesDB = [
                 { id: 1, name: 'Minimal Pitch', desc: 'Чистый и современный для стартапов', slides: 12, category: 'бизнес,стартап,технологии', color: '#7c3aed', icon: 'fa-chart-pie' },
                 { id: 2, name: 'Corporate Strategy', desc: 'Строгий корпоративный стиль', slides: 18, category: 'бизнес,корпоративный,стратегия', color: '#2563eb', icon: 'fa-building' },
@@ -703,21 +795,35 @@
                 { id: 8, name: 'Product Launch', desc: 'Динамичный запуск продукта', slides: 22, category: 'бизнес,продукт,запуск', color: '#8b5cf6', icon: 'fa-rocket' }
             ];
 
+            // DOM элементы
             const grid = document.getElementById('templatesGrid');
             const searchInput = document.getElementById('searchInput');
             const searchBtn = document.getElementById('searchBtn');
             const resultsTitle = document.getElementById('resultsTitle');
-            const modalOverlay = document.getElementById('modalOverlay');
+            
+            // Модалки
+            const modalTemplate = document.getElementById('modalTemplate');
+            const modalTopic = document.getElementById('modalTopic');
+            const modalGenerating = document.getElementById('modalGenerating');
+            
             const modalTitle = document.getElementById('modalTitle');
             const modalMessage = document.getElementById('modalMessage');
             const modalCancel = document.getElementById('modalCancel');
             const modalConfirm = document.getElementById('modalConfirm');
+            
+            const topicInput = document.getElementById('topicInput');
+            const topicCancel = document.getElementById('topicCancel');
+            const topicConfirm = document.getElementById('topicConfirm');
+            
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
 
+            // Состояние
             let currentTemplate = null;
             let currentQuery = 'Стартап презентация';
+            let selectedTopic = '';
 
+            // Вспомогательные функции
             function showToast(text, icon = 'check-circle') {
                 toastMessage.textContent = text;
                 document.querySelector('#toast i').className = `fas fa-${icon}`;
@@ -777,7 +883,7 @@
                         e.stopPropagation();
                         const id = parseInt(btn.dataset.id);
                         const template = templatesDB.find(t => t.id === id);
-                        if (template) openModal(template);
+                        if (template) openTemplateModal(template);
                     });
                 });
 
@@ -785,40 +891,124 @@
                     card.addEventListener('click', () => {
                         const id = parseInt(card.dataset.id);
                         const template = templatesDB.find(t => t.id === id);
-                        if (template) openModal(template);
+                        if (template) openTemplateModal(template);
                     });
                 });
             }
 
-            function openModal(template) {
+            function openTemplateModal(template) {
                 currentTemplate = template;
                 modalTitle.textContent = `Шаблон «${template.name}»`;
-                modalMessage.textContent = `Создать презентацию на ${template.slides} слайдов в стиле "${template.desc.toLowerCase()}"? Ametist подберёт контент под тему "${currentQuery}".`;
-                modalOverlay.classList.add('active');
+                modalMessage.textContent = `Создать презентацию на ${template.slides} слайдов в стиле "${template.desc.toLowerCase()}"?`;
+                modalTemplate.classList.add('active');
             }
 
-            function closeModal() {
-                modalOverlay.classList.remove('active');
-                currentTemplate = null;
+            function closeTemplateModal() {
+                modalTemplate.classList.remove('active');
             }
+
+            function openTopicModal() {
+                modalTemplate.classList.remove('active');
+                // Предзаполняем тему на основе предыдущего поиска или шаблона
+                topicInput.value = currentQuery;
+                modalTopic.classList.add('active');
+                // Анимация появления поля ввода (фокус)
+                setTimeout(() => topicInput.focus(), 100);
+            }
+
+            function closeTopicModal() {
+                modalTopic.classList.remove('active');
+            }
+
+            // Симуляция генерации с этапами
+            async function simulateGeneration(template, topic) {
+                modalTopic.classList.remove('active');
+                modalGenerating.classList.add('active');
+
+                const step1 = document.getElementById('step1');
+                const step2 = document.getElementById('step2');
+                const step3 = document.getElementById('step3');
+                const statusText = document.getElementById('generatingStatus');
+
+                // Сброс классов
+                [step1, step2, step3].forEach(s => {
+                    s.classList.remove('active', 'completed');
+                });
+
+                // Этап 1: поиск
+                step1.classList.add('active');
+                statusText.textContent = 'Ищем актуальную информацию по теме...';
+                await new Promise(r => setTimeout(r, 1500));
+                step1.classList.remove('active');
+                step1.classList.add('completed');
+                step1.querySelector('.step-icon').innerHTML = '<i class="fas fa-check"></i>';
+                step1.querySelector('.step-text').textContent = 'Информация собрана';
+
+                // Этап 2: структура
+                step2.classList.add('active');
+                statusText.textContent = 'Структурируем материал на слайды...';
+                await new Promise(r => setTimeout(r, 1800));
+                step2.classList.remove('active');
+                step2.classList.add('completed');
+                step2.querySelector('.step-icon').innerHTML = '<i class="fas fa-check"></i>';
+                step2.querySelector('.step-text').textContent = `Структура готова (${template.slides} слайдов)`;
+
+                // Этап 3: вёрстка
+                step3.classList.add('active');
+                statusText.textContent = 'Автоматическая вёрстка: размещаем текст и изображения...';
+                await new Promise(r => setTimeout(r, 2000));
+                step3.classList.remove('active');
+                step3.classList.add('completed');
+                step3.querySelector('.step-icon').innerHTML = '<i class="fas fa-check"></i>';
+                step3.querySelector('.step-text').textContent = 'Презентация готова!';
+
+                statusText.textContent = 'Всё готово! Сейчас начнётся скачивание.';
+                
+                await new Promise(r => setTimeout(r, 800));
+                modalGenerating.classList.remove('active');
+
+                // Сбрасываем иконки обратно для следующего раза
+                setTimeout(() => {
+                    step1.querySelector('.step-icon').innerHTML = '<i class="fas fa-search"></i>';
+                    step1.querySelector('.step-text').textContent = 'Поиск информации в интернете...';
+                    step2.querySelector('.step-icon').innerHTML = '<i class="fas fa-file-alt"></i>';
+                    step2.querySelector('.step-text').textContent = 'Структурирование слайдов...';
+                    step3.querySelector('.step-icon').innerHTML = '<i class="fas fa-magic"></i>';
+                    step3.querySelector('.step-text').textContent = 'Автоматическая вёрстка и дизайн...';
+                    [step1, step2, step3].forEach(s => s.classList.remove('completed'));
+                }, 500);
+
+                showToast(`Презентация «${topic}» готова! Скачивание началось.`, 'rocket');
+            }
+
+            // Обработчики
+            searchBtn.addEventListener('click', () => {
+                currentQuery = searchInput.value || 'презентация';
+                searchWithLoading(currentQuery);
+            });
+
+            searchInput.addEventListener('keypress', (e) => { 
+                if (e.key === 'Enter') {
+                    currentQuery = searchInput.value || 'презентация';
+                    searchWithLoading(currentQuery);
+                }
+            });
 
             function searchWithLoading(query) {
-                currentQuery = query || searchInput.value || 'презентация';
-                grid.innerHTML = `<div class="loading-state"><div class="loading-spinner"></div><p style="color: #6b7280;">Анализируем «${currentQuery}»...</p></div>`;
+                grid.innerHTML = `<div class="loading-state"><div class="loading-spinner"></div><p style="color: #6b7280;">Анализируем «${query}»...</p></div>`;
                 setTimeout(() => {
-                    const filtered = filterTemplates(currentQuery);
+                    const filtered = filterTemplates(query);
                     resultsTitle.textContent = filtered.length ? `Найдено шаблонов: ${filtered.length}` : 'Ничего не найдено :(';
                     renderTemplates(filtered);
                 }, 800);
             }
 
-            searchBtn.addEventListener('click', () => searchWithLoading());
-            searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchWithLoading(); });
-
+            // Теги
             document.querySelectorAll('.tag').forEach(tag => {
                 tag.addEventListener('click', () => {
                     const query = tag.dataset.query;
                     searchInput.value = query;
+                    currentQuery = query;
                     searchWithLoading(query);
                     document.querySelectorAll('.tag').forEach(t => t.style.background = 'white');
                     tag.style.background = '#7c3aed';
@@ -826,6 +1016,7 @@
                 });
             });
 
+            // Переключение вида
             document.querySelectorAll('.view-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
@@ -835,20 +1026,52 @@
                 });
             });
 
-            modalCancel.addEventListener('click', closeModal);
-            modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+            // Модалки
+            modalCancel.addEventListener('click', closeTemplateModal);
+            modalTemplate.addEventListener('click', (e) => { if (e.target === modalTemplate) closeTemplateModal(); });
+            
             modalConfirm.addEventListener('click', () => {
                 if (currentTemplate) {
-                    closeModal();
-                    showToast(`Ametist создаёт презентацию «${currentTemplate.name}»...`, 'gem');
-                    setTimeout(() => {
-                        showToast(`Готово! Файл «${currentTemplate.name}_${Date.now()}.pptx» скачан.`, 'check-circle');
-                    }, 5000);
+                    openTopicModal();
                 }
             });
 
+            topicCancel.addEventListener('click', () => {
+                closeTopicModal();
+                // Возвращаемся к выбору шаблона
+                modalTemplate.classList.add('active');
+            });
+
+            modalTopic.addEventListener('click', (e) => { if (e.target === modalTopic) closeTopicModal(); });
+
+            topicConfirm.addEventListener('click', () => {
+                const topic = topicInput.value.trim();
+                if (!topic) {
+                    showToast('Введите тему презентации', 'exclamation-circle');
+                    return;
+                }
+                if (currentTemplate) {
+                    simulateGeneration(currentTemplate, topic);
+                }
+            });
+
+            topicInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const topic = topicInput.value.trim();
+                    if (!topic) {
+                        showToast('Введите тему презентации', 'exclamation-circle');
+                        return;
+                    }
+                    if (currentTemplate) {
+                        simulateGeneration(currentTemplate, topic);
+                    }
+                }
+            });
+
+            // Инициализация
             setTimeout(() => searchWithLoading('Стартап презентация'), 300);
 
+            // Анимация логотипа
             const logoIcon = document.querySelector('.logo-icon');
             setInterval(() => {
                 logoIcon.style.transform = 'scale(1.05)';
