@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ametist — Нейросеть для презентаций</title>
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(145deg, #f5f0ff 0%, #ffffff 100%);
+            min-height: 100vh;
+            color: #1e1b2b;
+            padding: 24px;
+            animation: bgPulse 8s infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% { background: #f5f0ff; }
+            100% { background: #ede4ff; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Шапка */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .logo h1 {
+            font-weight: 700;
+            font-size: 28px;
+            background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo h1 i {
+            font-size: 22px;
+            margin-left: 6px;
+            color: #8b5cf6;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            color: #a855f7;
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .credits {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            color: #4c1d95;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #c084fc, #7c3aed);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        /* Основной блок поиска */
+        .search-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 50px rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .search-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .search-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2e1065;
+            margin-bottom: 8px;
+        }
+
+        .search-header p {
+            color: #6b21a8;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 18px 24px;
+            border: 2px solid rgba(124, 58, 237, 0.2);
+            border-radius: 60px;
+            font-size: 16px;
+            font-family: inherit;
+            background: white;
+            color: #1e1b2b;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .search-box input:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+        }
+
+        .search-box button {
+            padding: 18px 36px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border: none;
+            border-radius: 60px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .search-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.5);
+            background: linear-gradient(135deg, #8b5cf6, #c084fc);
+        }
+
+        .search-box button:active {
+            transform: translateY(0);
+        }
+
+        .search-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tag {
+            padding: 8px 18px;
+            background: white;
+            border-radius: 40px;
+            font-size: 14px;
+            color: #4c1d95;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            animation: tagPop 0.4s ease-out;
+        }
+
+        @keyframes tagPop {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .tag:hover {
+            background: #7c3aed;
+            color: white;
+            border-color: #7c3aed;
+            transform: scale(1.05);
+        }
+
+        .tag i {
+            margin-right: 6px;
+            font-size: 12px;
+        }
+
+        /* Секция результатов */
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-header h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2e1065;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            background: white;
+            padding: 4px;
+            border-radius: 40px;
+            border: 1px solid rgba(124, 58, 237, 0.15);
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 40px;
+            cursor: pointer;
+            color: #6b7280;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .view-btn.active {
+            background: #7c3aed;
+            color: white;
+        }
+
+        /* Сетка шаблонов */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(124, 58, 237, 0.1);
+            cursor: pointer;
+            animation: cardAppear 0.5s ease-out;
+        }
+
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .template-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 40px rgba(124, 58, 237, 0.2);
+            border-color: rgba(124, 58, 237, 0.3);
+        }
+
+        .card-preview {
+            height: 180px;
+            background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .preview-slide {
+            width: 85%;
+            height: 70%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-title {
+            width: 70%;
+            height: 12px;
+            background: #7c3aed;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+
+        .preview-line {
+            width: 100%;
+            height: 6px;
+            background: #d8b4fe;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .preview-line.short {
+            width: 60%;
+        }
+
+        .preview-image-placeholder {
+            flex: 1;
+            background: linear-gradient(45deg, #fae8ff, #f3e8ff);
+            border-radius: 8px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a855f7;
+            font-size: 24px;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(4px);
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4c1d95;
+            border: 1px solid white;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: #1e1b2b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-desc {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .slides-count {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #7c3aed;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .use-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
+        }
+
+        .use-btn:hover {
+            background: linear-gradient(135deg, #8b5cf6, #c084fc);
+            transform: scale(1.05);
+        }
+
+        /* Загрузка и пустое состояние */
+        .loading-state, .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e9d5ff;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: #c084fc;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .empty-state h4 {
+            font-size: 20px;
+            color: #4c1d95;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: #6b7280;
+        }
+
+        /* Модалка */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(30, 27, 43, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal h3 {
+            font-size: 24px;
+            color: #2e1065;
+            margin-bottom: 16px;
+        }
+
+        .modal p {
+            color: #4b5563;
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
+        }
+
+        .modal-btn.primary {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+
+        .modal-btn.secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Тосты */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1e1b2b;
+            color: white;
+            padding: 16px 28px;
+            border-radius: 60px;
+            font-weight: 500;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            color: #a855f7;
+        }
+
+        /* Адаптив */
+        @media (max-width: 768px) {
+            body { padding: 16px; }
+            .search-section { padding: 24px; }
+            .search-header h2 { font-size: 28px; }
+            .search-box { flex-direction: column; }
+            .header { flex-direction: column; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка Ametist -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h1>Ametist <i class="fas fa-chevron-right" style="font-size: 16px; opacity: 0.7;"></i></h1>
+            </div>
+            <div class="user-badge">
+                <div class="credits">
+                    <i class="fas fa-coins" style="color: #fbbf24; margin-right: 6px;"></i>
+                    3 бесплатные генерации
+                </div>
+                <div class="avatar">
+                    <span>В</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Поиск -->
+        <section class="search-section">
+            <div class="search-header">
+                <h2>Создай презентацию за минуту</h2>
+                <p>Опиши тему, а Ametist подберёт идеальные шаблоны</p>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Например: Питч-дек для инвесторов..." value="Стартап презентация">
+                <button id="searchBtn">
+                    <i class="fas fa-search"></i>
+                    Искать
+                </button>
+            </div>
+            <div class="search-tags" id="searchTags">
+                <div class="tag" data-query="бизнес"><i class="fas fa-chart-line"></i> Бизнес</div>
+                <div class="tag" data-query="образование"><i class="fas fa-graduation-cap"></i> Образование</div>
+                <div class="tag" data-query="дизайн"><i class="fas fa-paint-brush"></i> Дизайн</div>
+                <div class="tag" data-query="технологии"><i class="fas fa-microchip"></i> Технологии</div>
+                <div class="tag" data-query="маркетинг"><i class="fas fa-bullhorn"></i> Маркетинг</div>
+                <div class="tag" data-query="медицина"><i class="fas fa-heartbeat"></i> Медицина</div>
+            </div>
+        </section>
+
+        <!-- Результаты -->
+        <div class="results-header">
+            <h3 id="resultsTitle">Рекомендованные шаблоны</h3>
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="grid"><i class="fas fa-th"></i></button>
+                <button class="view-btn" data-view="list"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
+
+        <div class="templates-grid" id="templatesGrid">
+            <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p style="color: #6b7280;">Ищем подходящие шаблоны...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h3 id="modalTitle">Выбрать шаблон?</h3>
+            <p id="modalMessage">Вы действительно хотите использовать этот шаблон для создания презентации?</p>
+            <div class="modal-actions">
+                <button class="modal-btn secondary" id="modalCancel">Отмена</button>
+                <button class="modal-btn primary" id="modalConfirm">Продолжить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Тосты -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Готово</span>
+    </div>
+
+    <script>
+        (function(){
+            "use strict";
+
+            const templatesDB = [
+                { id: 1, name: 'Minimal Pitch', desc: 'Чистый и современный для стартапов', slides: 12, category: 'бизнес,стартап,технологии', color: '#7c3aed', icon: 'fa-chart-pie' },
+                { id: 2, name: 'Corporate Strategy', desc: 'Строгий корпоративный стиль', slides: 18, category: 'бизнес,корпоративный,стратегия', color: '#2563eb', icon: 'fa-building' },
+                { id: 3, name: 'Education Hub', desc: 'Яркий шаблон для лекций и курсов', slides: 14, category: 'образование,университет,школа', color: '#e11d48', icon: 'fa-graduation-cap' },
+                { id: 4, name: 'Creative Portfolio', desc: 'Для дизайнеров и творческих проектов', slides: 10, category: 'дизайн,портфолио,творчество', color: '#d946ef', icon: 'fa-palette' },
+                { id: 5, name: 'Tech Startup', desc: 'Футуристичный для IT-продуктов', slides: 15, category: 'технологии,стартап,софт', color: '#06b6d4', icon: 'fa-microchip' },
+                { id: 6, name: 'Marketing Deck', desc: 'Аналитика и воронки продаж', slides: 20, category: 'маркетинг,реклама,аналитика', color: '#f59e0b', icon: 'fa-chart-simple' },
+                { id: 7, name: 'Medical Report', desc: 'Для презентаций в здравоохранении', slides: 16, category: 'медицина,здоровье,исследование', color: '#10b981', icon: 'fa-heart-pulse' },
+                { id: 8, name: 'Product Launch', desc: 'Динамичный запуск продукта', slides: 22, category: 'бизнес,продукт,запуск', color: '#8b5cf6', icon: 'fa-rocket' }
+            ];
+
+            const grid = document.getElementById('templatesGrid');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const resultsTitle = document.getElementById('resultsTitle');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalCancel = document.getElementById('modalCancel');
+            const modalConfirm = document.getElementById('modalConfirm');
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+
+            let currentTemplate = null;
+            let currentQuery = 'Стартап презентация';
+
+            function showToast(text, icon = 'check-circle') {
+                toastMessage.textContent = text;
+                document.querySelector('#toast i').className = `fas fa-${icon}`;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            }
+
+            function filterTemplates(query) {
+                const q = query.toLowerCase().trim();
+                if (!q) return templatesDB;
+                return templatesDB.filter(t => {
+                    return t.name.toLowerCase().includes(q) || 
+                           t.desc.toLowerCase().includes(q) || 
+                           t.category.toLowerCase().includes(q);
+                });
+            }
+
+            function renderTemplates(templates) {
+                if (templates.length === 0) {
+                    grid.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><h4>Ничего не найдено</h4><p>Попробуйте изменить поисковый запрос</p></div>`;
+                    return;
+                }
+                grid.innerHTML = templates.map((t, index) => `
+                    <div class="template-card" data-id="${t.id}" style="animation-delay: ${index * 0.05}s">
+                        <div class="card-preview" style="background: linear-gradient(135deg, ${t.color}20, ${t.color}40)">
+                            <div class="preview-slide">
+                                <div class="preview-title" style="background: ${t.color}; width: ${60 + Math.random()*30}%"></div>
+                                <div class="preview-line" style="background: ${t.color}60"></div>
+                                <div class="preview-line short" style="background: ${t.color}60"></div>
+                                <div class="preview-image-placeholder" style="color: ${t.color}">
+                                    <i class="fas ${t.icon}"></i>
+                                </div>
+                            </div>
+                            <div class="card-badge">
+                                <i class="fas fa-star" style="color: #fbbf24; margin-right: 4px;"></i> AMETIST
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">
+                                ${t.name}
+                                <i class="fas fa-arrow-right" style="color: ${t.color}; opacity: 0.7;"></i>
+                            </div>
+                            <div class="card-desc">${t.desc}</div>
+                            <div class="card-footer">
+                                <div class="slides-count">
+                                    <i class="fas fa-images"></i>
+                                    ${t.slides} слайдов
+                                </div>
+                                <button class="use-btn" data-id="${t.id}">Использовать</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                document.querySelectorAll('.use-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = parseInt(btn.dataset.id);
+                        const template = templatesDB.find(t => t.id === id);
+                        if (template) openModal(template);
+                    });
+                });
+
+                document.querySelectorAll('.template-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const id = parseInt(card.dataset.id);
+                        const template = templatesDB.find(t => t.id === id);
+                        if (template) openModal(template);
+                    });
+                });
+            }
+
+            function openModal(template) {
+                currentTemplate = template;
+                modalTitle.textContent = `Шаблон «${template.name}»`;
+                modalMessage.textContent = `Создать презентацию на ${template.slides} слайдов в стиле "${template.desc.toLowerCase()}"? Ametist подберёт контент под тему "${currentQuery}".`;
+                modalOverlay.classList.add('active');
+            }
+
+            function closeModal() {
+                modalOverlay.classList.remove('active');
+                currentTemplate = null;
+            }
+
+            function searchWithLoading(query) {
+                currentQuery = query || searchInput.value || 'презентация';
+                grid.innerHTML = `<div class="loading-state"><div class="loading-spinner"></div><p style="color: #6b7280;">Анализируем «${currentQuery}»...</p></div>`;
+                setTimeout(() => {
+                    const filtered = filterTemplates(currentQuery);
+                    resultsTitle.textContent = filtered.length ? `Найдено шаблонов: ${filtered.length}` : 'Ничего не найдено :(';
+                    renderTemplates(filtered);
+                }, 800);
+            }
+
+            searchBtn.addEventListener('click', () => searchWithLoading());
+            searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchWithLoading(); });
+
+            document.querySelectorAll('.tag').forEach(tag => {
+                tag.addEventListener('click', () => {
+                    const query = tag.dataset.query;
+                    searchInput.value = query;
+                    searchWithLoading(query);
+                    document.querySelectorAll('.tag').forEach(t => t.style.background = 'white');
+                    tag.style.background = '#7c3aed';
+                    tag.style.color = 'white';
+                });
+            });
+
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const view = btn.dataset.view;
+                    grid.style.gridTemplateColumns = view === 'list' ? '1fr' : 'repeat(auto-fill, minmax(280px, 1fr))';
+                });
+            });
+
+            modalCancel.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+            modalConfirm.addEventListener('click', () => {
+                if (currentTemplate) {
+                    closeModal();
+                    showToast(`Ametist создаёт презентацию «${currentTemplate.name}»...`, 'gem');
+                    setTimeout(() => {
+                        showToast(`Готово! Файл «${currentTemplate.name}_${Date.now()}.pptx» скачан.`, 'check-circle');
+                    }, 5000);
+                }
+            });
+
+            setTimeout(() => searchWithLoading('Стартап презентация'), 300);
+
+            const logoIcon = document.querySelector('.logo-icon');
+            setInterval(() => {
+                logoIcon.style.transform = 'scale(1.05)';
+                setTimeout(() => logoIcon.style.transform = 'scale(1)', 200);
+            }, 3000);
+        })();
+    </script>
+</body>
+</html>
