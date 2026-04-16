@@ -33,343 +33,162 @@
             margin-bottom: 40px;
         }
         .logo-icon-large {
-            width: 80px;
-            height: 80px;
+            width: 80px; height: 80px;
             background: linear-gradient(135deg, #7c3aed, #a855f7);
             border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 40px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 40px;
             box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
         }
         .logo-large h1 {
-            font-weight: 700;
-            font-size: 56px;
+            font-weight: 700; font-size: 56px;
             background: linear-gradient(135deg, #6d28d9, #8b5cf6);
-            -webkit-background-clip: text;
-            background-clip: text;
+            -webkit-background-clip: text; background-clip: text;
             color: transparent;
         }
         .search-container {
-            width: 100%;
-            max-width: 600px;
-            margin-bottom: 40px;
+            width: 100%; max-width: 600px; margin-bottom: 40px;
         }
         .search-box-landing {
-            display: flex;
-            background: white;
-            border-radius: 60px;
+            display: flex; background: white; border-radius: 60px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border: 1px solid rgba(124, 58, 237, 0.2);
         }
         .search-box-landing input {
-            flex: 1;
-            padding: 20px 28px;
-            border: none;
-            border-radius: 60px 0 0 60px;
-            font-size: 18px;
-            font-family: inherit;
-            outline: none;
+            flex: 1; padding: 20px 28px; border: none;
+            border-radius: 60px 0 0 60px; font-size: 18px; outline: none;
         }
         .search-box-landing button {
-            padding: 20px 36px;
-            background: linear-gradient(135deg, #7c3aed, #a855f7);
-            border: none;
-            border-radius: 60px;
-            color: white;
-            font-weight: 600;
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-            border: 1px solid rgba(255,255,255,0.2);
+            padding: 20px 36px; background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border: none; border-radius: 60px; color: white; font-weight: 600;
+            font-size: 18px; cursor: pointer; display: flex; align-items: center;
+            gap: 10px; transition: all 0.3s;
         }
-        .design-gallery {
-            width: 100%;
-            max-width: 900px;
-        }
-        .design-gallery h3 {
-            text-align: center;
-            margin-bottom: 24px;
-            color: #2e1065;
-        }
+        .design-gallery { width: 100%; max-width: 900px; }
+        .design-gallery h3 { text-align: center; margin-bottom: 24px; color: #2e1065; }
         .design-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 20px;
         }
         .design-card {
-            background: white;
-            border-radius: 24px;
-            padding: 20px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-            text-align: center;
+            background: white; border-radius: 24px; padding: 20px; cursor: pointer;
+            border: 2px solid transparent; transition: all 0.3s; text-align: center;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
-        .design-card.active {
-            border-color: #7c3aed;
-            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.2);
-        }
+        .design-card.active { border-color: #7c3aed; }
         .design-preview {
-            width: 100%;
-            height: 120px;
-            border-radius: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: white;
+            width: 100%; height: 120px; border-radius: 16px; margin-bottom: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 40px; color: white;
         }
-        .design-name {
-            font-weight: 600;
-            color: #2e1065;
-        }
-        /* Основное приложение (редактор) */
-        .app {
-            display: none;
-            flex-direction: column;
-            height: 100vh;
-        }
+        /* Редактор */
+        .app { display: none; flex-direction: column; height: 100vh; }
         .app.visible { display: flex; }
-        /* Шапка редактора */
         .app-header {
-            background: white;
-            padding: 8px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            background: white; padding: 8px 24px; display: flex;
+            align-items: center; justify-content: space-between;
             border-bottom: 1px solid rgba(124, 58, 237, 0.1);
         }
-        .app-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .app-logo { display: flex; align-items: center; gap: 12px; }
         .app-logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #7c3aed, #a855f7);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
-        .app-logo h1 { font-size: 22px; background: linear-gradient(135deg, #6d28d9, #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .app-actions {
-            display: flex;
-            gap: 12px;
+            width: 36px; height: 36px; background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 18px;
         }
         .app-btn {
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            border: none;
-            background: white;
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            color: #4c1d95;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            padding: 8px 16px; border-radius: 40px; font-weight: 600; font-size: 14px;
+            cursor: pointer; border: none; background: white;
+            border: 1px solid rgba(124, 58, 237, 0.2); color: #4c1d95;
+            display: flex; align-items: center; gap: 8px;
         }
-        .app-btn.primary {
-            background: #7c3aed;
-            color: white;
-            border: none;
-        }
-        /* Лента (упрощённая) */
+        .app-btn.primary { background: #7c3aed; color: white; border: none; }
         .ribbon {
-            background: white;
-            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+            background: white; border-bottom: 1px solid rgba(124, 58, 237, 0.1);
             padding: 4px 16px;
         }
-        .ribbon-tabs {
-            display: flex;
-            gap: 4px;
-        }
+        .ribbon-tabs { display: flex; gap: 4px; }
         .ribbon-tab {
-            padding: 8px 16px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #4b5563;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
+            padding: 8px 16px; font-weight: 600; font-size: 14px;
+            color: #4b5563; cursor: pointer; border-bottom: 2px solid transparent;
         }
         .ribbon-tab.active { color: #7c3aed; border-bottom-color: #7c3aed; }
-        /* Макет редактора */
-        .editor-container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
+        .editor-container { display: flex; flex: 1; overflow: hidden; }
         .slide-sider {
-            width: 260px;
-            background: white;
-            border-right: 1px solid rgba(124, 58, 237, 0.1);
-            display: flex;
-            flex-direction: column;
-            padding: 16px 0;
+            width: 260px; background: white; border-right: 1px solid rgba(124, 58, 237, 0.1);
+            display: flex; flex-direction: column; padding: 16px 0;
         }
-        .slides-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0 12px;
-        }
+        .slides-list { flex: 1; overflow-y: auto; padding: 0 12px; }
         .slide-thumb {
-            margin-bottom: 12px;
-            border-radius: 8px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            background: #faf8ff;
-            padding: 10px;
+            margin-bottom: 12px; border-radius: 8px; border: 2px solid transparent;
+            cursor: pointer; background: #faf8ff; padding: 10px;
         }
         .slide-thumb.active { border-color: #7c3aed; }
-        .slide-thumb-title { font-weight: 600; font-size: 14px; color: #2e1065; margin-bottom: 4px; }
-        .slide-thumb-content { font-size: 11px; color: #6b7280; }
         .workspace {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #e9e1f9;
-            padding: 24px;
-            overflow-y: auto;
+            flex: 1; display: flex; flex-direction: column; background: #e9e1f9;
+            padding: 24px; overflow-y: auto;
         }
         .slide-canvas {
-            background: white;
-            width: 100%;
-            max-width: 960px;
-            margin: 0 auto;
-            aspect-ratio: 16/9;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
+            background: white; width: 100%; max-width: 960px; margin: 0 auto;
+            aspect-ratio: 16/9; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px; display: flex; flex-direction: column; overflow-y: auto;
+            transition: background 0.3s;
         }
         .slide-title-editable {
-            font-size: 32px;
-            font-weight: 700;
-            color: #2e1065;
-            margin-bottom: 24px;
-            border: none;
-            outline: none;
+            font-size: 32px; font-weight: 700; color: #2e1065; margin-bottom: 24px;
+            border: none; outline: none;
         }
-        .slide-content-editable {
-            display: flex;
-            gap: 32px;
-            flex: 1;
-        }
+        .slide-content-editable { display: flex; gap: 32px; flex: 1; }
         .slide-text-editable {
-            flex: 1;
-            font-size: 18px;
-            line-height: 1.6;
-            color: #4b5563;
-            border: none;
-            outline: none;
+            flex: 1; font-size: 18px; line-height: 1.6; color: #4b5563;
+            border: none; outline: none;
         }
         .slide-visual {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #a855f7;
-            font-size: 64px;
-            flex-shrink: 0;
+            width: 200px; height: 200px; background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+            border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            color: #a855f7; font-size: 64px; flex-shrink: 0;
         }
         .properties-panel {
-            width: 280px;
-            background: white;
-            border-left: 1px solid rgba(124, 58, 237, 0.1);
-            padding: 16px;
-            overflow-y: auto;
+            width: 300px; background: white; border-left: 1px solid rgba(124, 58, 237, 0.1);
+            padding: 16px; overflow-y: auto;
         }
+        .panel-section { margin-bottom: 24px; }
+        .panel-title { font-weight: 600; margin-bottom: 12px; color: #2e1065; }
+        select, input { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd; }
         /* Слайд-шоу */
         .slideshow-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #1e1b2b;
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: #1e1b2b; z-index: 2000; display: none;
+            align-items: center; justify-content: center;
         }
         .slideshow-container {
-            width: 90%;
-            max-width: 1200px;
-            aspect-ratio: 16/9;
-            background: white;
-            border-radius: 16px;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
+            width: 90%; max-width: 1200px; aspect-ratio: 16/9;
+            background: white; border-radius: 16px; padding: 60px;
+            display: flex; flex-direction: column; position: relative;
+            transition: opacity 0.5s, transform 0.5s;
         }
         .slideshow-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 20px;
         }
         .slideshow-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
+            background: rgba(255,255,255,0.2); border: none; color: white;
+            width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer;
         }
-        /* Модалки и тосты */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(30,27,43,0.8);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.3s;
-        }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal {
-            background: white;
-            border-radius: 24px;
-            padding: 32px;
-            max-width: 500px;
-            width: 90%;
-        }
+        /* Анимации объектов */
+        .animated { animation-duration: 0.5s; animation-fill-mode: both; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        /* Тосты */
         .toast {
-            position: fixed;
-            bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: #1e1b2b; color: white;
-            padding: 16px 28px; border-radius: 60px;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #1e1b2b; color: white; padding: 16px 28px; border-radius: 60px;
             z-index: 3000; opacity: 0; transition: 0.3s;
         }
         .toast.show { opacity: 1; }
         .loading-spinner {
-            width: 40px; height: 40px;
-            border: 4px solid #e9d5ff; border-top-color: #7c3aed;
-            border-radius: 50%; animation: spin 1s linear infinite;
+            width: 40px; height: 40px; border: 4px solid #e9d5ff;
+            border-top-color: #7c3aed; border-radius: 50%; animation: spin 1s linear infinite;
             margin: 20px auto;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -377,12 +196,10 @@
 </head>
 <body>
 
-<!-- СТАРТОВЫЙ ЭКРАН -->
+<!-- Стартовый экран -->
 <div class="landing" id="landing">
     <div class="logo-large">
-        <div class="logo-icon-large">
-            <i class="fas fa-gem"></i>
-        </div>
+        <div class="logo-icon-large"><i class="fas fa-gem"></i></div>
         <h1>Ametist</h1>
     </div>
     <div class="search-container">
@@ -393,23 +210,16 @@
     </div>
     <div class="design-gallery">
         <h3>Выберите стиль презентации</h3>
-        <div class="design-grid" id="designGrid">
-            <!-- Динамически заполним JS -->
-        </div>
+        <div class="design-grid" id="designGrid"></div>
     </div>
 </div>
 
-<!-- РЕДАКТОР -->
+<!-- Редактор -->
 <div class="app" id="app">
     <div class="app-header">
-        <div class="app-logo">
-            <div class="app-logo-icon"><i class="fas fa-gem"></i></div>
-            <h1>Ametist</h1>
-        </div>
+        <div class="app-logo"><div class="app-logo-icon"><i class="fas fa-gem"></i></div><h1>Ametist</h1></div>
         <div class="app-actions">
             <button class="app-btn" id="slideshowBtn"><i class="fas fa-play"></i> Слайд-шоу</button>
-            <button class="app-btn" id="exportPptxBtn"><i class="fas fa-file-powerpoint"></i> PPTX</button>
-            <button class="app-btn" id="exportPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
             <button class="app-btn" id="backToLandingBtn"><i class="fas fa-home"></i> На главную</button>
         </div>
     </div>
@@ -422,7 +232,7 @@
     </div>
     <div class="editor-container">
         <div class="slide-sider">
-            <div style="padding: 0 12px 16px;">
+            <div style="padding:0 12px 16px;">
                 <button class="app-btn primary" id="addSlideBtn" style="width:100%; justify-content:center;"><i class="fas fa-plus"></i> Новый слайд</button>
             </div>
             <div class="slides-list" id="slidesList"></div>
@@ -436,29 +246,13 @@
                 </div>
             </div>
         </div>
-        <div class="properties-panel">
-            <h4 style="margin-bottom:16px;">Свойства слайда</h4>
-            <div class="panel-section">
-                <label>Макет</label>
-                <select id="layoutSelect" style="width:100%; padding:8px; border-radius:8px; border:1px solid #ddd;">
-                    <option value="title-content">Заголовок и текст</option>
-                    <option value="title-visual">Заголовок и объект</option>
-                    <option value="two-content">Два объекта</option>
-                    <option value="title-only">Только заголовок</option>
-                </select>
-            </div>
-            <div class="panel-section">
-                <label>Фон</label>
-                <input type="color" id="bgColorInput" value="#ffffff">
-            </div>
-            <div class="panel-section">
-                <button class="app-btn" id="applyDesignBtn"><i class="fas fa-paint-brush"></i> Применить дизайн</button>
-            </div>
+        <div class="properties-panel" id="propertiesPanel">
+            <!-- Содержимое будет динамически меняться в зависимости от вкладки -->
         </div>
     </div>
 </div>
 
-<!-- СЛАЙД-ШОУ -->
+<!-- Слайд-шоу -->
 <div class="slideshow-overlay" id="slideshowOverlay">
     <div class="slideshow-container" id="slideshowContainer">
         <div class="slide-title-editable" id="slideshowTitle">Заголовок</div>
@@ -474,33 +268,34 @@
     </div>
 </div>
 
-<!-- МОДАЛКА ГЕНЕРАЦИИ -->
-<div class="modal-overlay" id="generatingModal">
-    <div class="modal">
+<!-- Модалка генерации -->
+<div class="modal-overlay" id="generatingModal" style="position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index:1000;">
+    <div style="background:white; border-radius:24px; padding:32px; max-width:500px;">
         <h3>Генерация презентации</h3>
         <div class="loading-spinner"></div>
         <p id="generatingStatus">Поиск информации в Википедии...</p>
     </div>
 </div>
 
-<!-- ТОСТ -->
+<!-- Тосты -->
 <div class="toast" id="toast"><span id="toastMessage"></span></div>
-
-<!-- БИБЛИОТЕКИ -->
-<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 (function(){
     "use strict";
 
-    // --- СОСТОЯНИЕ ---
+    // Состояние
     let presentationData = { title: '', slides: [] };
     let currentSlideIndex = -1;
-    let selectedDesign = { bg: '#ffffff', gradient: null, object: 'gem' };
+    let selectedDesign = { name: 'Аметист', gradient: 'linear-gradient(135deg, #7c3aed, #a855f7)', icon: 'fa-gem' };
     let slideshowIndex = 0;
+    let activeTab = 'home';
 
-    // --- DOM ---
+    // Данные о переходах и анимациях для каждого слайда
+    // transition: { type: 'none', duration: 0.5 }
+    // animations: { title: 'none', text: 'none', visual: 'none' }
+
+    // DOM
     const landing = document.getElementById('landing');
     const app = document.getElementById('app');
     const landingTopic = document.getElementById('landingTopicInput');
@@ -511,13 +306,10 @@
     const slideText = document.getElementById('slideText');
     const slideVisual = document.getElementById('slideVisual');
     const slideCanvas = document.getElementById('slideCanvas');
-    const layoutSelect = document.getElementById('layoutSelect');
-    const bgColorInput = document.getElementById('bgColorInput');
-    const addSlideBtn = document.getElementById('addSlideBtn');
-    const exportPptxBtn = document.getElementById('exportPptxBtn');
-    const exportPdfBtn = document.getElementById('exportPdfBtn');
+    const propertiesPanel = document.getElementById('propertiesPanel');
     const slideshowBtn = document.getElementById('slideshowBtn');
     const slideshowOverlay = document.getElementById('slideshowOverlay');
+    const slideshowContainer = document.getElementById('slideshowContainer');
     const slideshowTitle = document.getElementById('slideshowTitle');
     const slideshowText = document.getElementById('slideshowText');
     const slideshowVisual = document.getElementById('slideshowVisual');
@@ -529,20 +321,20 @@
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
     const backToLandingBtn = document.getElementById('backToLandingBtn');
-    const applyDesignBtn = document.getElementById('applyDesignBtn');
+    const addSlideBtn = document.getElementById('addSlideBtn');
 
-    // --- ДИЗАЙНЫ ---
+    // Дизайны
     const designs = [
-        { name: 'Аметист', gradient: 'linear-gradient(135deg, #7c3aed, #a855f7)', object: 'gem', icon: 'fa-gem' },
-        { name: 'Океан', gradient: 'linear-gradient(135deg, #06b6d4, #3b82f6)', object: 'water', icon: 'fa-water' },
-        { name: 'Закат', gradient: 'linear-gradient(135deg, #f59e0b, #ef4444)', object: 'sun', icon: 'fa-sun' },
-        { name: 'Лес', gradient: 'linear-gradient(135deg, #10b981, #34d399)', object: 'leaf', icon: 'fa-leaf' },
-        { name: 'Космос', gradient: 'linear-gradient(135deg, #1e1b4b, #312e81)', object: 'rocket', icon: 'fa-rocket' },
-        { name: 'Неон', gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)', object: 'bolt', icon: 'fa-bolt' }
+        { name: 'Аметист', gradient: 'linear-gradient(135deg, #7c3aed, #a855f7)', icon: 'fa-gem' },
+        { name: 'Океан', gradient: 'linear-gradient(135deg, #06b6d4, #3b82f6)', icon: 'fa-water' },
+        { name: 'Закат', gradient: 'linear-gradient(135deg, #f59e0b, #ef4444)', icon: 'fa-sun' },
+        { name: 'Лес', gradient: 'linear-gradient(135deg, #10b981, #34d399)', icon: 'fa-leaf' },
+        { name: 'Космос', gradient: 'linear-gradient(135deg, #1e1b4b, #312e81)', icon: 'fa-rocket' },
+        { name: 'Неон', gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)', icon: 'fa-bolt' }
     ];
 
     function renderDesigns() {
-        designGrid.innerHTML = designs.map((d, i) => `
+        designGrid.innerHTML = designs.map((d,i) => `
             <div class="design-card ${i===0?'active':''}" data-index="${i}">
                 <div class="design-preview" style="background: ${d.gradient};">
                     <i class="fas ${d.icon}"></i>
@@ -554,31 +346,34 @@
             card.addEventListener('click', () => {
                 document.querySelectorAll('.design-card').forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
-                const idx = card.dataset.index;
-                selectedDesign = { ...designs[idx] };
-                selectedDesign.bg = '#ffffff'; // базовый белый фон слайда
+                selectedDesign = designs[card.dataset.index];
             });
         });
-        selectedDesign = { ...designs[0], bg: '#ffffff' };
     }
     renderDesigns();
 
-    // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
-    function showToast(msg, isGood = true) {
+    // Утилиты
+    function showToast(msg) {
         toastMessage.textContent = msg;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
+    function initSlideData(slide) {
+        if (!slide.transition) slide.transition = { type: 'none', duration: 0.5 };
+        if (!slide.animations) slide.animations = { title: 'none', text: 'none', visual: 'none' };
+        return slide;
+    }
+
     function renderSlidesList() {
         if (!presentationData.slides.length) {
-            slidesList.innerHTML = '<p style="padding:20px;text-align:center;color:#999;">Нет слайдов</p>';
+            slidesList.innerHTML = '<p style="padding:20px;text-align:center;">Нет слайдов</p>';
             return;
         }
-        slidesList.innerHTML = presentationData.slides.map((s, i) => `
+        slidesList.innerHTML = presentationData.slides.map((s,i) => `
             <div class="slide-thumb ${i===currentSlideIndex?'active':''}" data-index="${i}">
                 <div class="slide-thumb-title">${s.title || 'Без названия'}</div>
-                <div class="slide-thumb-content">${(s.content || '').substring(0,40)}...</div>
+                <div class="slide-thumb-content">${(s.content||'').substring(0,40)}...</div>
             </div>
         `).join('');
         document.querySelectorAll('.slide-thumb').forEach(el => {
@@ -586,256 +381,264 @@
                 currentSlideIndex = parseInt(el.dataset.index);
                 renderSlideToCanvas();
                 renderSlidesList();
+                updatePropertiesPanel();
             });
         });
     }
 
     function renderSlideToCanvas() {
-        if (currentSlideIndex < 0 || !presentationData.slides[currentSlideIndex]) return;
+        if (currentSlideIndex < 0) return;
         const slide = presentationData.slides[currentSlideIndex];
         slideTitle.textContent = slide.title || 'Заголовок';
-        slideText.textContent = slide.content || 'Текст слайда';
-        const visualIcon = slide.visualIcon || selectedDesign.icon || 'fa-image';
-        slideVisual.innerHTML = `<i class="fas ${visualIcon}"></i>`;
-        layoutSelect.value = slide.layout || 'title-content';
-        updateLayout(slide.layout || 'title-content');
-        // Применяем дизайн к канвасу
-        if (selectedDesign.gradient) {
-            slideCanvas.style.background = selectedDesign.gradient;
-        } else {
-            slideCanvas.style.background = bgColorInput.value;
-        }
+        slideText.textContent = slide.content || 'Текст';
+        slideVisual.innerHTML = `<i class="fas ${slide.visualIcon || selectedDesign.icon}"></i>`;
+        if (selectedDesign.gradient) slideCanvas.style.background = selectedDesign.gradient;
+        // layout уже хранится в slide.layout, но мы не используем сложную логику макетов для простоты
+        // применяем анимации объектов (для предпросмотра в редакторе они не проигрываются)
     }
 
-    function updateLayout(layout) {
-        const contentArea = document.getElementById('slideContentArea');
-        if (layout === 'title-only') {
-            contentArea.style.display = 'none';
-        } else {
-            contentArea.style.display = 'flex';
-            if (layout === 'title-visual') {
-                contentArea.style.flexDirection = 'column';
-                contentArea.style.alignItems = 'center';
-            } else {
-                contentArea.style.flexDirection = 'row';
-                contentArea.style.alignItems = 'flex-start';
-            }
-        }
-    }
-
-    // --- ГЕНЕРАЦИЯ ИЗ ВИКИПЕДИИ (РУ) ---
-    async function searchWikipediaRU(topic) {
-        const url = `https://ru.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(topic)}&format=json&origin=*`;
-        const resp = await fetch(url);
-        const data = await resp.json();
-        return data.query.search;
-    }
-    async function getPageContentRU(pageId) {
-        const url = `https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&explaintext=1&pageids=${pageId}&format=json&origin=*`;
-        const resp = await fetch(url);
-        const data = await resp.json();
-        return data.query.pages[pageId].extract;
-    }
-
-    function generateSlidesFromText(topic, summary) {
-        const slides = [];
-        // Введение
-        slides.push({
-            title: 'Введение',
-            content: `${topic} — ${summary.split('.')[0]}.`,
-            visualIcon: 'fa-flag',
-            layout: 'title-content'
-        });
-        // Основные слайды (из предложений)
-        const sentences = summary.split('. ').filter(s => s.length > 30);
-        const count = Math.min(5, Math.max(2, Math.floor(sentences.length / 2)));
-        for (let i=0; i<count; i++) {
-            const start = Math.floor(i * sentences.length / count);
-            const end = Math.floor((i+1) * sentences.length / count);
-            const content = sentences.slice(start, end).join('. ') + '.';
-            const titles = ['Ключевые факты', 'История', 'Достижения', 'Влияние', 'Интересные данные'];
-            slides.push({
-                title: titles[i % titles.length],
-                content: content,
-                visualIcon: ['fa-star', 'fa-landmark', 'fa-trophy', 'fa-globe', 'fa-lightbulb'][i%5],
-                layout: 'title-content'
+    function updatePropertiesPanel() {
+        const slide = presentationData.slides[currentSlideIndex];
+        if (!slide) return;
+        if (activeTab === 'home') {
+            propertiesPanel.innerHTML = `
+                <div class="panel-section">
+                    <div class="panel-title">Макет слайда</div>
+                    <select id="layoutSelect">
+                        <option value="title-content" ${slide.layout==='title-content'?'selected':''}>Заголовок и текст</option>
+                        <option value="title-visual" ${slide.layout==='title-visual'?'selected':''}>Заголовок и объект</option>
+                        <option value="title-only" ${slide.layout==='title-only'?'selected':''}>Только заголовок</option>
+                    </select>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">Фон</div>
+                    <input type="color" id="bgColorInput" value="#ffffff">
+                    <button class="app-btn" id="applyDesignBtn" style="margin-top:8px;">Применить дизайн</button>
+                </div>
+            `;
+            document.getElementById('layoutSelect').addEventListener('change', e => {
+                slide.layout = e.target.value;
+                // упрощённо: скрываем/показываем блок с текстом/визуалом
+                const contentArea = document.getElementById('slideContentArea');
+                if (slide.layout === 'title-only') contentArea.style.display = 'none';
+                else contentArea.style.display = 'flex';
             });
+            document.getElementById('bgColorInput').addEventListener('input', e => slideCanvas.style.background = e.target.value);
+            document.getElementById('applyDesignBtn').addEventListener('click', () => {
+                slideCanvas.style.background = selectedDesign.gradient;
+                slide.visualIcon = selectedDesign.icon;
+                slideVisual.innerHTML = `<i class="fas ${selectedDesign.icon}"></i>`;
+            });
+        } else if (activeTab === 'transitions') {
+            propertiesPanel.innerHTML = `
+                <div class="panel-section">
+                    <div class="panel-title">Переход к этому слайду</div>
+                    <select id="transitionType">
+                        <option value="none" ${slide.transition?.type==='none'?'selected':''}>Без перехода</option>
+                        <option value="fade" ${slide.transition?.type==='fade'?'selected':''}>Плавное появление</option>
+                        <option value="slide" ${slide.transition?.type==='slide'?'selected':''}>Сдвиг</option>
+                        <option value="zoom" ${slide.transition?.type==='zoom'?'selected':''}>Увеличение</option>
+                    </select>
+                    <label>Длительность (сек):</label>
+                    <input type="number" id="transitionDuration" min="0.1" max="2" step="0.1" value="${slide.transition?.duration||0.5}">
+                </div>
+            `;
+            document.getElementById('transitionType').addEventListener('change', e => slide.transition.type = e.target.value);
+            document.getElementById('transitionDuration').addEventListener('input', e => slide.transition.duration = parseFloat(e.target.value));
+        } else if (activeTab === 'animations') {
+            propertiesPanel.innerHTML = `
+                <div class="panel-section">
+                    <div class="panel-title">Анимация заголовка</div>
+                    <select id="animTitle">
+                        <option value="none" ${slide.animations?.title==='none'?'selected':''}>Нет</option>
+                        <option value="fadeIn" ${slide.animations?.title==='fadeIn'?'selected':''}>Появление</option>
+                        <option value="slideInLeft" ${slide.animations?.title==='slideInLeft'?'selected':''}>Слева</option>
+                        <option value="zoomIn" ${slide.animations?.title==='zoomIn'?'selected':''}>Увеличение</option>
+                    </select>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">Анимация текста</div>
+                    <select id="animText">
+                        <option value="none" ${slide.animations?.text==='none'?'selected':''}>Нет</option>
+                        <option value="fadeIn" ${slide.animations?.text==='fadeIn'?'selected':''}>Появление</option>
+                        <option value="slideInLeft" ${slide.animations?.text==='slideInLeft'?'selected':''}>Слева</option>
+                        <option value="zoomIn" ${slide.animations?.text==='zoomIn'?'selected':''}>Увеличение</option>
+                    </select>
+                </div>
+                <div class="panel-section">
+                    <div class="panel-title">Анимация объекта</div>
+                    <select id="animVisual">
+                        <option value="none" ${slide.animations?.visual==='none'?'selected':''}>Нет</option>
+                        <option value="fadeIn" ${slide.animations?.visual==='fadeIn'?'selected':''}>Появление</option>
+                        <option value="slideInLeft" ${slide.animations?.visual==='slideInLeft'?'selected':''}>Слева</option>
+                        <option value="zoomIn" ${slide.animations?.visual==='zoomIn'?'selected':''}>Увеличение</option>
+                    </select>
+                </div>
+            `;
+            document.getElementById('animTitle').addEventListener('change', e => slide.animations.title = e.target.value);
+            document.getElementById('animText').addEventListener('change', e => slide.animations.text = e.target.value);
+            document.getElementById('animVisual').addEventListener('change', e => slide.animations.visual = e.target.value);
         }
-        // Заключение
-        slides.push({
-            title: 'Заключение',
-            content: `Таким образом, ${topic} остаётся значимой темой. ${summary.split('.')[summary.split('.').length-2]}.`,
-            visualIcon: 'fa-check-circle',
-            layout: 'title-content'
-        });
-        return slides;
     }
 
+    // Вкладки ленты
+    document.querySelectorAll('.ribbon-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.ribbon-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            activeTab = tab.dataset.tab;
+            updatePropertiesPanel();
+        });
+    });
+
+    // Слайд-шоу с переходами и анимациями
+    function applyTransition(container, transition) {
+        return new Promise(resolve => {
+            if (!transition || transition.type === 'none') { resolve(); return; }
+            container.style.transition = `all ${transition.duration}s ease`;
+            if (transition.type === 'fade') {
+                container.style.opacity = '0';
+                setTimeout(() => { container.style.opacity = '1'; resolve(); }, 50);
+            } else if (transition.type === 'slide') {
+                container.style.transform = 'translateX(100%)';
+                setTimeout(() => { container.style.transform = 'translateX(0)'; resolve(); }, 50);
+            } else if (transition.type === 'zoom') {
+                container.style.transform = 'scale(0.5)';
+                setTimeout(() => { container.style.transform = 'scale(1)'; resolve(); }, 50);
+            } else resolve();
+            setTimeout(resolve, transition.duration*1000);
+        });
+    }
+
+    function applyAnimations(container, animations) {
+        const titleEl = container.querySelector('#slideshowTitle');
+        const textEl = container.querySelector('#slideshowText');
+        const visualEl = container.querySelector('#slideshowVisual');
+        [titleEl, textEl, visualEl].forEach(el => el.style.animation = 'none');
+        el.offsetHeight; // reflow
+        if (animations.title !== 'none') titleEl.style.animation = `${animations.title} 0.5s`;
+        if (animations.text !== 'none') textEl.style.animation = `${animations.text} 0.5s`;
+        if (animations.visual !== 'none') visualEl.style.animation = `${animations.visual} 0.5s`;
+    }
+
+    async function updateSlideshowSlide() {
+        const slide = presentationData.slides[slideshowIndex];
+        slideshowTitle.textContent = slide.title;
+        slideshowText.textContent = slide.content;
+        slideshowVisual.innerHTML = `<i class="fas ${slide.visualIcon || selectedDesign.icon}"></i>`;
+        slideshowContainer.style.background = selectedDesign.gradient || '#fff';
+        // Применяем переход (если не первый запуск)
+        if (slideshowOverlay.style.display === 'flex') {
+            await applyTransition(slideshowContainer, slide.transition);
+        }
+        applyAnimations(slideshowContainer, slide.animations);
+    }
+
+    function openSlideshow() {
+        slideshowIndex = currentSlideIndex;
+        slideshowOverlay.style.display = 'flex';
+        updateSlideshowSlide();
+    }
+
+    slideshowBtn.addEventListener('click', openSlideshow);
+    closeSlideshowBtn.addEventListener('click', () => slideshowOverlay.style.display = 'none');
+    prevSlideShowBtn.addEventListener('click', async () => {
+        if (slideshowIndex > 0) {
+            slideshowIndex--;
+            await updateSlideshowSlide();
+        }
+    });
+    nextSlideShowBtn.addEventListener('click', async () => {
+        if (slideshowIndex < presentationData.slides.length - 1) {
+            slideshowIndex++;
+            await updateSlideshowSlide();
+        }
+    });
+    document.addEventListener('keydown', async (e) => {
+        if (slideshowOverlay.style.display === 'flex') {
+            if (e.key === 'ArrowLeft' && slideshowIndex > 0) {
+                slideshowIndex--;
+                await updateSlideshowSlide();
+                e.preventDefault();
+            } else if (e.key === 'ArrowRight' && slideshowIndex < presentationData.slides.length - 1) {
+                slideshowIndex++;
+                await updateSlideshowSlide();
+                e.preventDefault();
+            } else if (e.key === 'Escape') slideshowOverlay.style.display = 'none';
+        }
+    });
+
+    // Генерация презентации (как раньше)
     async function generatePresentation(topic) {
-        generatingModal.classList.add('active');
+        generatingModal.style.display = 'flex';
         generatingStatus.textContent = 'Поиск в русской Википедии...';
         try {
-            const search = await searchWikipediaRU(topic);
-            if (!search.length) throw new Error('Ничего не найдено');
-            const pageId = search[0].pageid;
-            generatingStatus.textContent = `Загрузка статьи "${search[0].title}"...`;
-            const extract = await getPageContentRU(pageId);
-            generatingStatus.textContent = 'Создание структуры слайдов...';
-            const slides = generateSlidesFromText(topic, extract);
+            // Используем русскую Википедию
+            const searchUrl = `https://ru.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(topic)}&format=json&origin=*`;
+            const resp = await fetch(searchUrl);
+            const data = await resp.json();
+            if (!data.query.search.length) throw new Error('Ничего не найдено');
+            const pageId = data.query.search[0].pageid;
+            generatingStatus.textContent = `Загрузка статьи...`;
+            const contentUrl = `https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&explaintext=1&pageids=${pageId}&format=json&origin=*`;
+            const contentResp = await fetch(contentUrl);
+            const contentData = await contentResp.json();
+            const extract = contentData.query.pages[pageId].extract;
+            const slides = [];
+            // Введение
+            slides.push(initSlideData({ title: 'Введение', content: `${topic} — ${extract.split('.')[0]}.`, visualIcon: 'fa-flag', layout: 'title-content' }));
+            // Основные
+            const sentences = extract.split('. ').filter(s => s.length > 30);
+            const count = Math.min(5, Math.max(2, Math.floor(sentences.length/2)));
+            for (let i=0; i<count; i++) {
+                const start = Math.floor(i * sentences.length/count);
+                const end = Math.floor((i+1)*sentences.length/count);
+                const content = sentences.slice(start, end).join('. ') + '.';
+                slides.push(initSlideData({ title: ['Ключевые факты','История','Достижения','Влияние','Интересные данные'][i%5], content, visualIcon: ['fa-star','fa-landmark','fa-trophy','fa-globe','fa-lightbulb'][i%5], layout: 'title-content' }));
+            }
+            // Заключение
+            slides.push(initSlideData({ title: 'Заключение', content: `Таким образом, ${topic} остаётся значимой темой.`, visualIcon: 'fa-check-circle', layout: 'title-content' }));
             presentationData = { title: topic, slides };
             currentSlideIndex = 0;
             renderSlidesList();
             renderSlideToCanvas();
-            generatingModal.classList.remove('active');
+            updatePropertiesPanel();
+            generatingModal.style.display = 'none';
             showToast(`Презентация "${topic}" создана!`);
         } catch(e) {
-            generatingModal.classList.remove('active');
+            generatingModal.style.display = 'none';
             showToast('Ошибка: ' + e.message);
-            // fallback
-            presentationData = { title: topic, slides: [
-                { title: 'Введение', content: 'Пример слайда', visualIcon:'fa-flag', layout:'title-content' },
-                { title: 'Заключение', content: 'Спасибо за внимание', visualIcon:'fa-check', layout:'title-content' }
-            ]};
-            currentSlideIndex = 0;
-            renderSlidesList();
-            renderSlideToCanvas();
         }
-    }
-
-    // --- ПЕРЕХОД К РЕДАКТОРУ ---
-    function startEditor(topic) {
-        landing.classList.add('hidden');
-        app.classList.add('visible');
-        generatePresentation(topic);
     }
 
     landingGenerate.addEventListener('click', () => {
         const topic = landingTopic.value.trim();
         if (!topic) { showToast('Введите тему'); return; }
-        startEditor(topic);
+        landing.classList.add('hidden');
+        app.classList.add('visible');
+        generatePresentation(topic);
     });
 
-    // --- ЭКСПОРТ В PPTX (рабочий) ---
-    function exportPPTX() {
-        const PptxGenJS = window.PptxGenJS;
-        const pptx = new PptxGenJS();
-        pptx.defineLayout({ name:'CUSTOM', width:10, height:5.625 }); // 16:9
-        pptx.layout = 'CUSTOM';
-        presentationData.slides.forEach(slide => {
-            const s = pptx.addSlide();
-            s.background = { fill: selectedDesign.gradient ? selectedDesign.gradient : bgColorInput.value };
-            s.addText(slide.title, { x:0.5, y:0.5, w:9, h:1, fontSize:24, bold:true, color:'2e1065' });
-            if (slide.layout !== 'title-only') {
-                s.addText(slide.content, { x:0.5, y:1.5, w:5.5, h:3.5, fontSize:14, color:'4b5563' });
-            }
-            // иконка как текст (упрощённо)
-        });
-        pptx.writeFile({ fileName: `${presentationData.title.replace(/\s/g,'_')}.pptx` });
-        showToast('PPTX файл готов!');
-    }
-
-    function exportPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({ orientation: 'landscape', unit: 'in', format: [10, 5.625] });
-        presentationData.slides.forEach((slide, i) => {
-            if (i>0) doc.addPage();
-            doc.setFontSize(24);
-            doc.text(slide.title, 0.5, 0.8);
-            doc.setFontSize(12);
-            const lines = doc.splitTextToSize(slide.content, 9);
-            doc.text(lines, 0.5, 1.5);
-        });
-        doc.save(`${presentationData.title.replace(/\s/g,'_')}.pdf`);
-        showToast('PDF файл готов!');
-    }
-
-    exportPptxBtn.addEventListener('click', exportPPTX);
-    exportPdfBtn.addEventListener('click', exportPDF);
-
-    // --- СЛАЙД-ШОУ ---
-    function openSlideshow() {
-        slideshowIndex = currentSlideIndex;
-        updateSlideshowSlide();
-        slideshowOverlay.style.display = 'flex';
-    }
-    function updateSlideshowSlide() {
-        const slide = presentationData.slides[slideshowIndex];
-        slideshowTitle.textContent = slide.title;
-        slideshowText.textContent = slide.content;
-        slideshowVisual.innerHTML = `<i class="fas ${slide.visualIcon || 'fa-image'}"></i>`;
-        if (selectedDesign.gradient) {
-            document.getElementById('slideshowContainer').style.background = selectedDesign.gradient;
-        } else {
-            document.getElementById('slideshowContainer').style.background = bgColorInput.value;
-        }
-    }
-    slideshowBtn.addEventListener('click', openSlideshow);
-    closeSlideshowBtn.addEventListener('click', ()=> slideshowOverlay.style.display = 'none');
-    prevSlideShowBtn.addEventListener('click', ()=>{
-        if (slideshowIndex>0) { slideshowIndex--; updateSlideshowSlide(); }
-    });
-    nextSlideShowBtn.addEventListener('click', ()=>{
-        if (slideshowIndex < presentationData.slides.length-1) { slideshowIndex++; updateSlideshowSlide(); }
-    });
-    // Клавиши
-    document.addEventListener('keydown', (e) => {
-        if (slideshowOverlay.style.display === 'flex') {
-            if (e.key === 'ArrowLeft') { if(slideshowIndex>0){ slideshowIndex--; updateSlideshowSlide(); } e.preventDefault(); }
-            if (e.key === 'ArrowRight') { if(slideshowIndex < presentationData.slides.length-1){ slideshowIndex++; updateSlideshowSlide(); } e.preventDefault(); }
-            if (e.key === 'Escape') slideshowOverlay.style.display = 'none';
-        }
-    });
-
-    // --- РЕДАКТИРОВАНИЕ ---
-    slideTitle.addEventListener('input', () => {
-        if (currentSlideIndex>=0) presentationData.slides[currentSlideIndex].title = slideTitle.textContent;
-        renderSlidesList();
-    });
-    slideText.addEventListener('input', () => {
-        if (currentSlideIndex>=0) presentationData.slides[currentSlideIndex].content = slideText.textContent;
-        renderSlidesList();
-    });
-    layoutSelect.addEventListener('change', (e) => {
-        if (currentSlideIndex>=0) {
-            presentationData.slides[currentSlideIndex].layout = e.target.value;
-            updateLayout(e.target.value);
-        }
-    });
-    bgColorInput.addEventListener('input', (e) => {
-        slideCanvas.style.background = e.target.value;
-        selectedDesign.gradient = null; // убираем градиент при ручной смене
-    });
-    addSlideBtn.addEventListener('click', () => {
-        const newSlide = { title: 'Новый слайд', content: 'Текст...', visualIcon: 'fa-file', layout: 'title-content' };
-        presentationData.slides.push(newSlide);
-        currentSlideIndex = presentationData.slides.length-1;
-        renderSlidesList();
-        renderSlideToCanvas();
-    });
     backToLandingBtn.addEventListener('click', () => {
         app.classList.remove('visible');
         landing.classList.remove('hidden');
     });
-    applyDesignBtn.addEventListener('click', () => {
-        if (selectedDesign.gradient) slideCanvas.style.background = selectedDesign.gradient;
-        else slideCanvas.style.background = bgColorInput.value;
-        // обновить иконку по дизайну
-        if (currentSlideIndex>=0) {
-            presentationData.slides[currentSlideIndex].visualIcon = selectedDesign.icon;
-            slideVisual.innerHTML = `<i class="fas ${selectedDesign.icon}"></i>`;
-        }
+
+    addSlideBtn.addEventListener('click', () => {
+        const newSlide = initSlideData({ title: 'Новый слайд', content: 'Текст...', visualIcon: 'fa-file', layout: 'title-content' });
+        presentationData.slides.push(newSlide);
+        currentSlideIndex = presentationData.slides.length - 1;
+        renderSlidesList();
+        renderSlideToCanvas();
+        updatePropertiesPanel();
     });
 
-    // Инициализация пустой презентации при старте
-    presentationData = { title: 'Новая презентация', slides: [{ title:'Заголовок', content:'Текст', visualIcon:'fa-image', layout:'title-content' }] };
+    // Инициализация
+    presentationData = { title: 'Новая презентация', slides: [initSlideData({ title:'Заголовок', content:'Текст', visualIcon:'fa-image', layout:'title-content' })] };
     currentSlideIndex = 0;
     renderSlidesList();
     renderSlideToCanvas();
-
-    // Закрытие модалок по клику
-    window.addEventListener('click', (e) => {
-        if (e.target === generatingModal) generatingModal.classList.remove('active');
-    });
+    updatePropertiesPanel();
 
 })();
 </script>
