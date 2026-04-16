@@ -633,7 +633,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: #f5f0ff;
+            background: #f8f6fb;
             z-index: 2000;
             display: flex;
             flex-direction: column;
@@ -649,11 +649,11 @@
 
         .editor-header {
             background: white;
-            padding: 16px 24px;
+            padding: 12px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
 
@@ -664,7 +664,7 @@
         }
 
         .editor-title h2 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: #2e1065;
         }
@@ -675,10 +675,10 @@
         }
 
         .editor-btn {
-            padding: 10px 18px;
+            padding: 8px 16px;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             border: none;
             display: flex;
@@ -708,7 +708,7 @@
         }
 
         .editor-sidebar {
-            width: 260px;
+            width: 280px;
             background: white;
             border-right: 1px solid rgba(124, 58, 237, 0.1);
             display: flex;
@@ -743,6 +743,7 @@
             padding: 12px;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .slide-thumb-title {
@@ -758,7 +759,7 @@
             line-height: 1.4;
             overflow: hidden;
             display: -webkit-box;
-            -webkit-line-clamp: 4;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
         }
 
@@ -768,20 +769,55 @@
             flex-direction: column;
             padding: 24px;
             overflow-y: auto;
+            background: #f5f0ff;
         }
 
         .editor-preview {
             background: white;
             border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            padding: 40px;
+            padding: 32px 40px;
             min-height: 500px;
             border: 1px solid rgba(124, 58, 237, 0.1);
+            margin-bottom: 20px;
         }
 
         .slide-editor {
             max-width: 800px;
             margin: 0 auto;
+        }
+
+        .slide-preview-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2e1065;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .slide-preview-body {
+            display: flex;
+            gap: 32px;
+        }
+
+        .slide-preview-text {
+            flex: 1;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4b5563;
+        }
+
+        .slide-preview-visual {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a855f7;
+            font-size: 48px;
         }
 
         .slide-field {
@@ -793,13 +829,15 @@
             font-weight: 600;
             color: #4c1d95;
             margin-bottom: 8px;
-            font-size: 14px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .slide-field input, .slide-field textarea {
             width: 100%;
             padding: 14px 18px;
-            border: 2px solid rgba(124, 58, 237, 0.2);
+            border: 2px solid rgba(124, 58, 237, 0.15);
             border-radius: 16px;
             font-size: 15px;
             font-family: inherit;
@@ -809,13 +847,13 @@
         }
 
         .slide-field textarea {
-            min-height: 120px;
+            min-height: 100px;
             resize: vertical;
         }
 
         .slide-field input:focus, .slide-field textarea:focus {
             border-color: #7c3aed;
-            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.08);
         }
 
         .editor-footer {
@@ -842,6 +880,31 @@
         }
 
         .slide-nav button:hover {
+            background: #f3e8ff;
+        }
+
+        .add-content-bar {
+            display: flex;
+            gap: 8px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .add-content-btn {
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            background: white;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .add-content-btn:hover {
             background: #f3e8ff;
         }
 
@@ -883,6 +946,7 @@
             .header { flex-direction: column; gap: 16px; }
             .editor-main { flex-direction: column; }
             .editor-sidebar { width: 100%; max-height: 200px; }
+            .slide-preview-body { flex-direction: column; }
         }
     </style>
 </head>
@@ -1000,6 +1064,7 @@
                 <h2 id="editorPresentationName">Презентация</h2>
             </div>
             <div class="editor-actions">
+                <button class="editor-btn" id="addSlideBtn"><i class="fas fa-plus"></i> Добавить</button>
                 <button class="editor-btn" id="exportPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
                 <button class="editor-btn primary" id="exportPptxBtn"><i class="fas fa-file-powerpoint"></i> PPTX</button>
             </div>
@@ -1007,15 +1072,13 @@
         <div class="editor-main">
             <div class="editor-sidebar">
                 <div class="slides-list" id="slidesList"></div>
-                <div style="padding: 16px;">
-                    <button class="editor-btn" style="width: 100%; justify-content: center;" id="addSlideBtn"><i class="fas fa-plus"></i> Добавить слайд</button>
-                </div>
             </div>
             <div class="editor-workspace">
-                <div class="editor-preview">
-                    <div class="slide-editor" id="slideEditor">
-                        <!-- динамически заполняется -->
-                    </div>
+                <div class="editor-preview" id="editorPreview">
+                    <!-- Предпросмотр будет динамическим -->
+                </div>
+                <div class="slide-editor" id="slideEditor">
+                    <!-- Форма редактирования будет динамической -->
                 </div>
             </div>
         </div>
@@ -1076,6 +1139,7 @@
             // Редактор
             const slidesList = document.getElementById('slidesList');
             const slideEditor = document.getElementById('slideEditor');
+            const editorPreview = document.getElementById('editorPreview');
             const editorPresentationName = document.getElementById('editorPresentationName');
             const closeEditorBtn = document.getElementById('closeEditorBtn');
             const exportPdfBtn = document.getElementById('exportPdfBtn');
@@ -1088,7 +1152,7 @@
             // Состояние
             let currentTemplate = null;
             let currentQuery = 'Стартап презентация';
-            let presentationData = null; // { title, slides: [{ title, content, notes }] }
+            let presentationData = null;
             let currentSlideIndex = 0;
 
             // Вспомогательные функции
@@ -1186,7 +1250,7 @@
                 modalTopic.classList.remove('active');
             }
 
-            // Генерация тестовых данных презентации
+            // Генерация тестовых данных презентации с красивым контентом
             function generatePresentationData(template, topic) {
                 const slides = [];
                 const slideCount = template.slides;
@@ -1199,14 +1263,36 @@
                 for (let i = 0; i < slideCount; i++) {
                     const title = i < topics.length ? topics[i] : `Слайд ${i+1}`;
                     let content = '';
-                    if (i === 0) content = `Добро пожаловать в презентацию на тему "${topic}". Здесь будет введение.`;
-                    else if (i === slideCount-1) content = 'Спасибо за внимание! Вопросы?';
-                    else content = `Основные тезисы по теме "${topic}". Детали будут добавлены автоматически.`;
+                    let visualIcon = 'fa-image';
+                    let layout = 'title-content';
+                    
+                    if (i === 0) {
+                        content = `Добро пожаловать в презентацию на тему "${topic}". Мы рассмотрим ключевые аспекты и тренды.`;
+                        visualIcon = 'fa-flag';
+                        layout = 'title-center';
+                    } else if (i === slideCount-1) {
+                        content = 'Спасибо за внимание! Вопросы?';
+                        visualIcon = 'fa-question-circle';
+                        layout = 'title-center';
+                    } else {
+                        const contentOptions = [
+                            `Ключевые тезисы по теме "${topic}". Инновационный подход к решению задач.`,
+                            `Анализ рынка показывает значительный рост в этом сегменте. По прогнозам, к 2026 году объём рынка достигнет $XX млрд.`,
+                            `Наше решение базируется на передовых технологиях и лучших практиках отрасли.`,
+                            `Команда экспертов с многолетним опытом готова реализовать проект.`
+                        ];
+                        content = contentOptions[i % contentOptions.length];
+                        visualIcon = ['fa-chart-bar', 'fa-lightbulb', 'fa-users', 'fa-cog'][i % 4];
+                        layout = 'title-content-visual';
+                    }
                     
                     slides.push({
                         title: title,
                         content: content,
-                        notes: ''
+                        notes: '',
+                        visualIcon: visualIcon,
+                        layout: layout,
+                        imageUrl: null
                     });
                 }
                 return {
@@ -1223,6 +1309,7 @@
                 editorPresentationName.textContent = data.title;
                 renderSlidesList();
                 renderSlideEditor();
+                renderPreview();
                 updateSlideCounter();
                 editorOverlay.classList.add('active');
             }
@@ -1233,7 +1320,7 @@
                     <div class="slide-thumb ${idx === currentSlideIndex ? 'active' : ''}" data-index="${idx}">
                         <div class="slide-thumb-preview">
                             <div class="slide-thumb-title">${slide.title || 'Без названия'}</div>
-                            <div class="slide-thumb-content">${slide.content.substring(0, 80)}...</div>
+                            <div class="slide-thumb-content">${slide.content.substring(0, 60)}...</div>
                         </div>
                     </div>
                 `).join('');
@@ -1243,6 +1330,7 @@
                         currentSlideIndex = parseInt(thumb.dataset.index);
                         renderSlidesList();
                         renderSlideEditor();
+                        renderPreview();
                         updateSlideCounter();
                     });
                 });
@@ -1252,6 +1340,12 @@
                 if (!presentationData) return;
                 const slide = presentationData.slides[currentSlideIndex];
                 slideEditor.innerHTML = `
+                    <div class="add-content-bar">
+                        <button class="add-content-btn" id="addImageBtn"><i class="fas fa-image"></i> Изображение</button>
+                        <button class="add-content-btn" id="addIconBtn"><i class="fas fa-icons"></i> Иконка</button>
+                        <button class="add-content-btn" id="addChartBtn"><i class="fas fa-chart-pie"></i> Диаграмма</button>
+                        <button class="add-content-btn" id="changeLayoutBtn"><i class="fas fa-th-large"></i> Макет</button>
+                    </div>
                     <div class="slide-field">
                         <label><i class="fas fa-heading"></i> Заголовок слайда</label>
                         <input type="text" id="slideTitleInput" value="${slide.title || ''}" placeholder="Введите заголовок">
@@ -1262,21 +1356,104 @@
                     </div>
                     <div class="slide-field">
                         <label><i class="fas fa-sticky-note"></i> Заметки к слайду</label>
-                        <textarea id="slideNotesInput" placeholder="Заметки докладчика..." rows="3">${slide.notes || ''}</textarea>
+                        <textarea id="slideNotesInput" placeholder="Заметки докладчика..." rows="2">${slide.notes || ''}</textarea>
                     </div>
                 `;
                 
                 document.getElementById('slideTitleInput').addEventListener('input', (e) => {
                     presentationData.slides[currentSlideIndex].title = e.target.value;
                     renderSlidesList();
+                    renderPreview();
                 });
                 document.getElementById('slideContentInput').addEventListener('input', (e) => {
                     presentationData.slides[currentSlideIndex].content = e.target.value;
                     renderSlidesList();
+                    renderPreview();
                 });
                 document.getElementById('slideNotesInput').addEventListener('input', (e) => {
                     presentationData.slides[currentSlideIndex].notes = e.target.value;
                 });
+
+                // Обработчики для кнопок добавления контента
+                document.getElementById('addImageBtn').addEventListener('click', () => {
+                    const url = prompt('Введите URL изображения:');
+                    if (url) {
+                        presentationData.slides[currentSlideIndex].imageUrl = url;
+                        presentationData.slides[currentSlideIndex].visualIcon = null;
+                        renderPreview();
+                        showToast('Изображение добавлено', 'image');
+                    }
+                });
+                
+                document.getElementById('addIconBtn').addEventListener('click', () => {
+                    const icon = prompt('Введите название иконки Font Awesome (например, "rocket"):', 'star');
+                    if (icon) {
+                        presentationData.slides[currentSlideIndex].visualIcon = icon;
+                        presentationData.slides[currentSlideIndex].imageUrl = null;
+                        renderPreview();
+                        showToast('Иконка обновлена', 'icons');
+                    }
+                });
+                
+                document.getElementById('addChartBtn').addEventListener('click', () => {
+                    showToast('Функция добавления диаграмм в разработке', 'chart-simple');
+                });
+                
+                document.getElementById('changeLayoutBtn').addEventListener('click', () => {
+                    const layouts = ['title-content', 'title-center', 'title-content-visual', 'title-visual'];
+                    const current = presentationData.slides[currentSlideIndex].layout;
+                    const next = layouts[(layouts.indexOf(current) + 1) % layouts.length];
+                    presentationData.slides[currentSlideIndex].layout = next;
+                    renderPreview();
+                    showToast(`Макет изменён: ${next}`, 'th-large');
+                });
+            }
+
+            function renderPreview() {
+                if (!presentationData) return;
+                const slide = presentationData.slides[currentSlideIndex];
+                const layout = slide.layout || 'title-content-visual';
+                
+                let visualHtml = '';
+                if (slide.imageUrl) {
+                    visualHtml = `<img src="${slide.imageUrl}" style="max-width: 100%; max-height: 180px; border-radius: 16px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`;
+                    visualHtml += `<div style="display: none; width: 180px; height: 180px; background: linear-gradient(135deg, #f3e8ff, #e9d5ff); border-radius: 24px; align-items: center; justify-content: center; color: #a855f7; font-size: 48px;"><i class="fas fa-image"></i></div>`;
+                } else {
+                    const icon = slide.visualIcon || 'fa-image';
+                    visualHtml = `<div style="width: 180px; height: 180px; background: linear-gradient(135deg, #f3e8ff, #e9d5ff); border-radius: 24px; display: flex; align-items: center; justify-content: center; color: #a855f7; font-size: 48px;"><i class="fas ${icon}"></i></div>`;
+                }
+
+                let previewHtml = `
+                    <div class="slide-preview-title">${slide.title || 'Без названия'}</div>
+                `;
+                
+                if (layout === 'title-center') {
+                    previewHtml += `
+                        <div style="text-align: center; padding: 40px 0;">
+                            <p style="font-size: 18px; color: #4b5563;">${slide.content || ''}</p>
+                        </div>
+                    `;
+                } else if (layout === 'title-visual') {
+                    previewHtml += `
+                        <div style="display: flex; justify-content: center; margin: 40px 0;">
+                            ${visualHtml}
+                        </div>
+                        <p style="text-align: center; color: #4b5563;">${slide.content || ''}</p>
+                    `;
+                } else {
+                    previewHtml += `
+                        <div class="slide-preview-body">
+                            <div class="slide-preview-text">
+                                ${slide.content || ''}
+                            </div>
+                            <div class="slide-preview-visual">
+                                ${visualHtml}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                editorPreview.innerHTML = previewHtml;
             }
 
             function updateSlideCounter() {
@@ -1327,11 +1504,9 @@
                 await new Promise(r => setTimeout(r, 800));
                 modalGenerating.classList.remove('active');
 
-                // Генерируем данные и открываем редактор
                 const data = generatePresentationData(template, topic);
                 openEditor(data);
 
-                // Сброс иконок
                 setTimeout(() => {
                     step1.querySelector('.step-icon').innerHTML = '<i class="fas fa-search"></i>';
                     step1.querySelector('.step-text').textContent = 'Поиск информации в интернете...';
@@ -1354,6 +1529,7 @@
                     currentSlideIndex--;
                     renderSlidesList();
                     renderSlideEditor();
+                    renderPreview();
                     updateSlideCounter();
                 }
             });
@@ -1363,6 +1539,7 @@
                     currentSlideIndex++;
                     renderSlidesList();
                     renderSlideEditor();
+                    renderPreview();
                     updateSlideCounter();
                 }
             });
@@ -1372,11 +1549,15 @@
                     presentationData.slides.push({
                         title: 'Новый слайд',
                         content: 'Содержимое нового слайда...',
-                        notes: ''
+                        notes: '',
+                        visualIcon: 'fa-file',
+                        layout: 'title-content-visual',
+                        imageUrl: null
                     });
                     currentSlideIndex = presentationData.slides.length - 1;
                     renderSlidesList();
                     renderSlideEditor();
+                    renderPreview();
                     updateSlideCounter();
                     showToast('Новый слайд добавлен', 'plus-circle');
                 }
@@ -1393,7 +1574,6 @@
 
             exportPdfBtn.addEventListener('click', () => {
                 if (!presentationData) return;
-                // Имитация PDF
                 let content = `=== ${presentationData.title} ===\n\n`;
                 presentationData.slides.forEach((s, i) => {
                     content += `Слайд ${i+1}: ${s.title}\n${s.content}\n\n`;
@@ -1404,7 +1584,6 @@
 
             exportPptxBtn.addEventListener('click', () => {
                 if (!presentationData) return;
-                // Имитация PPTX
                 let content = `=== ${presentationData.title} ===\n\n`;
                 presentationData.slides.forEach((s, i) => {
                     content += `Слайд ${i+1}: ${s.title}\n${s.content}\n\n`;
