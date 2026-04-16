@@ -8,83 +8,211 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: #f5f0ff;
             min-height: 100vh;
             color: #1e1b2b;
         }
-        /* Шапка */
-        .header {
+        /* Стартовый экран */
+        .landing {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            transition: opacity 0.3s;
+        }
+        .landing.hidden { display: none; }
+        .logo-large {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .logo-icon-large {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+        }
+        .logo-large h1 {
+            font-weight: 700;
+            font-size: 56px;
+            background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+        .search-box-landing {
+            display: flex;
             background: white;
-            padding: 12px 24px;
+            border-radius: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        .search-box-landing input {
+            flex: 1;
+            padding: 20px 28px;
+            border: none;
+            border-radius: 60px 0 0 60px;
+            font-size: 18px;
+            font-family: inherit;
+            outline: none;
+        }
+        .search-box-landing button {
+            padding: 20px 36px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            border: none;
+            border-radius: 60px;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .design-gallery {
+            width: 100%;
+            max-width: 900px;
+        }
+        .design-gallery h3 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #2e1065;
+        }
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .design-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .design-card.active {
+            border-color: #7c3aed;
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.2);
+        }
+        .design-preview {
+            width: 100%;
+            height: 120px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+        }
+        .design-name {
+            font-weight: 600;
+            color: #2e1065;
+        }
+        /* Основное приложение (редактор) */
+        .app {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .app.visible { display: flex; }
+        /* Шапка редактора */
+        .app-header {
+            background: white;
+            padding: 8px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid rgba(124, 58, 237, 0.1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
-        .logo {
+        .app-logo {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        .logo-icon {
-            width: 40px;
-            height: 40px;
+        .app-logo-icon {
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, #7c3aed, #a855f7);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
+            font-size: 18px;
         }
-        .logo h1 {
-            font-weight: 700;
-            font-size: 24px;
-            background: linear-gradient(135deg, #6d28d9, #8b5cf6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .user-badge {
+        .app-logo h1 { font-size: 22px; background: linear-gradient(135deg, #6d28d9, #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .app-actions {
             display: flex;
-            align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
-        .credits {
-            background: #f3e8ff;
+        .app-btn {
             padding: 8px 16px;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            background: white;
+            border: 1px solid rgba(124, 58, 237, 0.2);
             color: #4c1d95;
-        }
-        .avatar {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #c084fc, #7c3aed);
-            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 8px;
+        }
+        .app-btn.primary {
+            background: #7c3aed;
             color: white;
-            font-weight: 600;
-            cursor: pointer;
+            border: none;
         }
-        /* Основной макет */
-        .app-container {
+        /* Лента (упрощённая) */
+        .ribbon {
+            background: white;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+            padding: 4px 16px;
+        }
+        .ribbon-tabs {
             display: flex;
-            height: calc(100vh - 65px);
+            gap: 4px;
         }
-        /* Боковая панель (слайды) */
-        .sidebar {
+        .ribbon-tab {
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #4b5563;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        .ribbon-tab.active { color: #7c3aed; border-bottom-color: #7c3aed; }
+        /* Макет редактора */
+        .editor-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .slide-sider {
             width: 260px;
             background: white;
             border-right: 1px solid rgba(124, 58, 237, 0.1);
@@ -100,171 +228,55 @@
         .slide-thumb {
             margin-bottom: 12px;
             border-radius: 8px;
-            overflow: hidden;
             border: 2px solid transparent;
             cursor: pointer;
-            transition: all 0.2s;
             background: #faf8ff;
+            padding: 10px;
         }
-        .slide-thumb.active {
-            border-color: #7c3aed;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
-        }
-        .slide-thumb-preview {
-            height: 120px;
-            background: white;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-        }
-        .slide-thumb-title {
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 8px;
-            color: #2e1065;
-        }
-        .slide-thumb-content {
-            font-size: 11px;
-            color: #6b7280;
-            line-height: 1.4;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-        }
-        /* Рабочая область */
+        .slide-thumb.active { border-color: #7c3aed; }
+        .slide-thumb-title { font-weight: 600; font-size: 14px; color: #2e1065; margin-bottom: 4px; }
+        .slide-thumb-content { font-size: 11px; color: #6b7280; }
         .workspace {
             flex: 1;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-        }
-        /* Лента инструментов (Ribbon) в стиле PowerPoint */
-        .ribbon {
-            background: white;
-            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
-            padding: 8px 16px;
-        }
-        .ribbon-tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 8px;
-            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
-        }
-        .ribbon-tab {
-            padding: 8px 16px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #4b5563;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-        .ribbon-tab.active {
-            color: #7c3aed;
-            border-bottom-color: #7c3aed;
-        }
-        .ribbon-tab:hover {
-            color: #7c3aed;
-        }
-        .ribbon-panel {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .ribbon-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 12px;
-            border-right: 1px solid rgba(124, 58, 237, 0.1);
-        }
-        .ribbon-group:last-child {
-            border-right: none;
-        }
-        .ribbon-btn {
-            padding: 6px 12px;
-            border-radius: 6px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            color: #4b5563;
-            transition: all 0.2s;
-        }
-        .ribbon-btn i {
-            font-size: 18px;
-        }
-        .ribbon-btn:hover {
-            background: #f3e8ff;
-            color: #7c3aed;
-        }
-        .ribbon-btn.primary {
-            background: #7c3aed;
-            color: white;
-        }
-        .ribbon-btn.primary:hover {
-            background: #6d28d9;
-        }
-        /* Область слайда */
-        .slide-area {
-            flex: 1;
+            background: #e9e1f9;
             padding: 24px;
             overflow-y: auto;
-            background: #e9e1f9;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
         }
         .slide-canvas {
             background: white;
             width: 100%;
             max-width: 960px;
+            margin: 0 auto;
             aspect-ratio: 16/9;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             padding: 40px;
             display: flex;
             flex-direction: column;
-            position: relative;
             overflow-y: auto;
         }
-        .slide-title {
+        .slide-title-editable {
             font-size: 32px;
             font-weight: 700;
             color: #2e1065;
             margin-bottom: 24px;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
             border: none;
             outline: none;
-            width: 100%;
         }
-        .slide-title:empty:before {
-            content: "Заголовок слайда";
-            color: #9ca3af;
-        }
-        .slide-content {
+        .slide-content-editable {
             display: flex;
             gap: 32px;
             flex: 1;
         }
-        .slide-text {
+        .slide-text-editable {
             flex: 1;
             font-size: 18px;
             line-height: 1.6;
             color: #4b5563;
             border: none;
             outline: none;
-            overflow-y: auto;
-        }
-        .slide-text:empty:before {
-            content: "Основной текст слайда...";
-            color: #9ca3af;
         }
         .slide-visual {
             width: 200px;
@@ -278,7 +290,6 @@
             font-size: 64px;
             flex-shrink: 0;
         }
-        /* Панель свойств (справа) */
         .properties-panel {
             width: 280px;
             background: white;
@@ -286,59 +297,50 @@
             padding: 16px;
             overflow-y: auto;
         }
-        .panel-section {
-            margin-bottom: 24px;
+        /* Слайд-шоу */
+        .slideshow-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #1e1b2b;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
         }
-        .panel-title {
-            font-weight: 600;
-            font-size: 14px;
-            color: #2e1065;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .slideshow-container {
+            width: 90%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            background: white;
+            border-radius: 16px;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
-        .panel-input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 12px;
+        .slideshow-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
         }
-        .panel-input:focus {
-            border-color: #7c3aed;
-            outline: none;
-        }
-        .layout-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-        .layout-option {
-            padding: 12px 8px;
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            border-radius: 8px;
-            text-align: center;
+        .slideshow-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
             cursor: pointer;
-            transition: all 0.2s;
         }
-        .layout-option i {
-            font-size: 20px;
-            margin-bottom: 4px;
-            color: #7c3aed;
-        }
-        .layout-option.active {
-            border-color: #7c3aed;
-            background: #f3e8ff;
-        }
-        /* Модалка генерации */
+        /* Модалки и тосты */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(30, 27, 43, 0.8);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30,27,43,0.8);
             backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
@@ -346,692 +348,496 @@
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal {
             background: white;
             border-radius: 24px;
             padding: 32px;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-            transform: scale(0.9);
-            transition: transform 0.3s;
         }
-        .modal-overlay.active .modal {
-            transform: scale(1);
-        }
-        .modal h3 {
-            font-size: 24px;
-            color: #2e1065;
-            margin-bottom: 16px;
-        }
-        .modal-input {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid rgba(124, 58, 237, 0.2);
-            border-radius: 40px;
-            font-size: 16px;
-            margin-bottom: 24px;
-        }
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-        }
-        .modal-btn {
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-        }
-        .modal-btn.primary {
-            background: #7c3aed;
-            color: white;
-        }
-        .modal-btn.secondary {
-            background: #f3f4f6;
-            color: #4b5563;
-        }
-        /* Тосты */
         .toast {
             position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #1e1b2b;
-            color: white;
-            padding: 16px 28px;
-            border-radius: 60px;
-            font-weight: 500;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            z-index: 3000;
-            opacity: 0;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #1e1b2b; color: white;
+            padding: 16px 28px; border-radius: 60px;
+            z-index: 3000; opacity: 0; transition: 0.3s;
         }
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-        .toast i {
-            color: #a855f7;
-        }
-        /* Загрузка */
+        .toast.show { opacity: 1; }
         .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #e9d5ff;
-            border-top-color: #7c3aed;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            width: 40px; height: 40px;
+            border: 4px solid #e9d5ff; border-top-color: #7c3aed;
+            border-radius: 50%; animation: spin 1s linear infinite;
             margin: 20px auto;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .status-text {
-            text-align: center;
-            color: #6b7280;
-            margin-top: 16px;
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <!-- Шапка -->
-    <header class="header">
-        <div class="logo">
-            <div class="logo-icon">
-                <i class="fas fa-gem"></i>
-            </div>
+
+<!-- СТАРТОВЫЙ ЭКРАН -->
+<div class="landing" id="landing">
+    <div class="logo-large">
+        <div class="logo-icon-large">
+            <i class="fas fa-gem"></i>
+        </div>
+        <h1>Ametist</h1>
+    </div>
+    <div class="search-container">
+        <div class="search-box-landing">
+            <input type="text" id="landingTopicInput" placeholder="Введите тему презентации...">
+            <button id="landingGenerateBtn"><i class="fas fa-magic"></i> Создать</button>
+        </div>
+    </div>
+    <div class="design-gallery">
+        <h3>Выберите стиль презентации</h3>
+        <div class="design-grid" id="designGrid">
+            <!-- Динамически заполним JS -->
+        </div>
+    </div>
+</div>
+
+<!-- РЕДАКТОР -->
+<div class="app" id="app">
+    <div class="app-header">
+        <div class="app-logo">
+            <div class="app-logo-icon"><i class="fas fa-gem"></i></div>
             <h1>Ametist</h1>
         </div>
-        <div class="user-badge">
-            <div class="credits">
-                <i class="fas fa-coins" style="color: #fbbf24; margin-right: 6px;"></i>
-                3 бесплатные генерации
-            </div>
-            <div class="avatar">
-                <span>В</span>
-            </div>
+        <div class="app-actions">
+            <button class="app-btn" id="slideshowBtn"><i class="fas fa-play"></i> Слайд-шоу</button>
+            <button class="app-btn" id="exportPptxBtn"><i class="fas fa-file-powerpoint"></i> PPTX</button>
+            <button class="app-btn" id="exportPdfBtn"><i class="fas fa-file-pdf"></i> PDF</button>
+            <button class="app-btn" id="backToLandingBtn"><i class="fas fa-home"></i> На главную</button>
         </div>
-    </header>
-
-    <!-- Основной интерфейс -->
-    <div class="app-container">
-        <!-- Боковая панель со слайдами -->
-        <div class="sidebar">
+    </div>
+    <div class="ribbon">
+        <div class="ribbon-tabs">
+            <div class="ribbon-tab active" data-tab="home">Главная</div>
+            <div class="ribbon-tab" data-tab="transitions">Переходы</div>
+            <div class="ribbon-tab" data-tab="animations">Анимации</div>
+        </div>
+    </div>
+    <div class="editor-container">
+        <div class="slide-sider">
             <div style="padding: 0 12px 16px;">
-                <button class="ribbon-btn primary" id="newPresentationBtn" style="width: 100%; flex-direction: row; justify-content: center;">
-                    <i class="fas fa-plus"></i> Новая
-                </button>
+                <button class="app-btn primary" id="addSlideBtn" style="width:100%; justify-content:center;"><i class="fas fa-plus"></i> Новый слайд</button>
             </div>
-            <div class="slides-list" id="slidesList">
-                <!-- Слайды будут добавляться динамически -->
-            </div>
+            <div class="slides-list" id="slidesList"></div>
         </div>
-
-        <!-- Рабочая область -->
         <div class="workspace">
-            <!-- Лента (Ribbon) -->
-            <div class="ribbon">
-                <div class="ribbon-tabs">
-                    <div class="ribbon-tab active" data-tab="home">Главная</div>
-                    <div class="ribbon-tab" data-tab="insert">Вставка</div>
-                    <div class="ribbon-tab" data-tab="design">Дизайн</div>
-                    <div class="ribbon-tab" data-tab="transitions">Переходы</div>
-                    <div class="ribbon-tab" data-tab="animations">Анимации</div>
-                    <div class="ribbon-tab" data-tab="slideShow">Показ</div>
-                    <div class="ribbon-tab" data-tab="review">Рецензирование</div>
-                    <div class="ribbon-tab" data-tab="view">Вид</div>
-                </div>
-                <div class="ribbon-panel" id="ribbonPanel">
-                    <!-- Главная -->
-                    <div class="ribbon-group">
-                        <button class="ribbon-btn" id="addSlideRibbonBtn"><i class="fas fa-plus-square"></i> Новый слайд</button>
-                        <button class="ribbon-btn" id="layoutBtn"><i class="fas fa-th-large"></i> Макет</button>
-                        <button class="ribbon-btn" id="resetSlideBtn"><i class="fas fa-undo-alt"></i> Сбросить</button>
-                    </div>
-                    <div class="ribbon-group">
-                        <button class="ribbon-btn" id="boldBtn"><i class="fas fa-bold"></i> Жирный</button>
-                        <button class="ribbon-btn" id="italicBtn"><i class="fas fa-italic"></i> Курсив</button>
-                        <button class="ribbon-btn" id="underlineBtn"><i class="fas fa-underline"></i> Подчёркнутый</button>
-                    </div>
-                    <div class="ribbon-group">
-                        <button class="ribbon-btn" id="exportPptxRibbonBtn"><i class="fas fa-file-powerpoint"></i> PPTX</button>
-                        <button class="ribbon-btn" id="exportPdfRibbonBtn"><i class="fas fa-file-pdf"></i> PDF</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Область слайда -->
-            <div class="slide-area">
-                <div class="slide-canvas" id="slideCanvas">
-                    <div class="slide-title" id="slideTitle" contenteditable="true">Заголовок слайда</div>
-                    <div class="slide-content" id="slideContentArea">
-                        <div class="slide-text" id="slideText" contenteditable="true">Основной текст слайда...</div>
-                        <div class="slide-visual" id="slideVisual">
-                            <i class="fas fa-image"></i>
-                        </div>
-                    </div>
+            <div class="slide-canvas" id="slideCanvas">
+                <div class="slide-title-editable" id="slideTitle" contenteditable="true">Заголовок</div>
+                <div class="slide-content-editable" id="slideContentArea">
+                    <div class="slide-text-editable" id="slideText" contenteditable="true">Текст слайда...</div>
+                    <div class="slide-visual" id="slideVisual"><i class="fas fa-image"></i></div>
                 </div>
             </div>
         </div>
-
-        <!-- Панель свойств -->
         <div class="properties-panel">
+            <h4 style="margin-bottom:16px;">Свойства слайда</h4>
             <div class="panel-section">
-                <div class="panel-title">Генерация контента</div>
-                <input type="text" class="panel-input" id="topicInput" placeholder="Тема презентации...">
-                <button class="modal-btn primary" id="generateBtn" style="width: 100%;">
-                    <i class="fas fa-magic"></i> Сгенерировать
-                </button>
-                <p style="font-size: 12px; color: #6b7280; margin-top: 8px;">
-                    AI найдёт информацию в Википедии и создаст структуру презентации
-                </p>
+                <label>Макет</label>
+                <select id="layoutSelect" style="width:100%; padding:8px; border-radius:8px; border:1px solid #ddd;">
+                    <option value="title-content">Заголовок и текст</option>
+                    <option value="title-visual">Заголовок и объект</option>
+                    <option value="two-content">Два объекта</option>
+                    <option value="title-only">Только заголовок</option>
+                </select>
             </div>
             <div class="panel-section">
-                <div class="panel-title">Макет слайда</div>
-                <div class="layout-grid">
-                    <div class="layout-option active" data-layout="title-content">
-                        <i class="fas fa-heading"></i>
-                        <div style="font-size: 12px;">Заголовок и текст</div>
-                    </div>
-                    <div class="layout-option" data-layout="title-visual">
-                        <i class="fas fa-image"></i>
-                        <div style="font-size: 12px;">Заголовок и медиа</div>
-                    </div>
-                    <div class="layout-option" data-layout="two-content">
-                        <i class="fas fa-columns"></i>
-                        <div style="font-size: 12px;">Два объекта</div>
-                    </div>
-                    <div class="layout-option" data-layout="title-only">
-                        <i class="fas fa-text-height"></i>
-                        <div style="font-size: 12px;">Только заголовок</div>
-                    </div>
+                <label>Фон</label>
+                <input type="color" id="bgColorInput" value="#ffffff">
+            </div>
+            <div class="panel-section">
+                <button class="app-btn" id="applyDesignBtn"><i class="fas fa-paint-brush"></i> Применить дизайн</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- СЛАЙД-ШОУ -->
+<div class="slideshow-overlay" id="slideshowOverlay">
+    <div class="slideshow-container" id="slideshowContainer">
+        <div class="slide-title-editable" id="slideshowTitle">Заголовок</div>
+        <div class="slide-content-editable" id="slideshowContent">
+            <div class="slide-text-editable" id="slideshowText">Текст</div>
+            <div class="slide-visual" id="slideshowVisual"><i class="fas fa-image"></i></div>
+        </div>
+        <div class="slideshow-controls">
+            <button class="slideshow-btn" id="prevSlideShowBtn"><i class="fas fa-chevron-left"></i></button>
+            <button class="slideshow-btn" id="nextSlideShowBtn"><i class="fas fa-chevron-right"></i></button>
+            <button class="slideshow-btn" id="closeSlideshowBtn"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- МОДАЛКА ГЕНЕРАЦИИ -->
+<div class="modal-overlay" id="generatingModal">
+    <div class="modal">
+        <h3>Генерация презентации</h3>
+        <div class="loading-spinner"></div>
+        <p id="generatingStatus">Поиск информации в Википедии...</p>
+    </div>
+</div>
+
+<!-- ТОСТ -->
+<div class="toast" id="toast"><span id="toastMessage"></span></div>
+
+<!-- БИБЛИОТЕКИ -->
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+(function(){
+    "use strict";
+
+    // --- СОСТОЯНИЕ ---
+    let presentationData = { title: '', slides: [] };
+    let currentSlideIndex = -1;
+    let selectedDesign = { bg: '#ffffff', gradient: null, object: 'gem' };
+    let slideshowIndex = 0;
+
+    // --- DOM ---
+    const landing = document.getElementById('landing');
+    const app = document.getElementById('app');
+    const landingTopic = document.getElementById('landingTopicInput');
+    const landingGenerate = document.getElementById('landingGenerateBtn');
+    const designGrid = document.getElementById('designGrid');
+    const slidesList = document.getElementById('slidesList');
+    const slideTitle = document.getElementById('slideTitle');
+    const slideText = document.getElementById('slideText');
+    const slideVisual = document.getElementById('slideVisual');
+    const slideCanvas = document.getElementById('slideCanvas');
+    const layoutSelect = document.getElementById('layoutSelect');
+    const bgColorInput = document.getElementById('bgColorInput');
+    const addSlideBtn = document.getElementById('addSlideBtn');
+    const exportPptxBtn = document.getElementById('exportPptxBtn');
+    const exportPdfBtn = document.getElementById('exportPdfBtn');
+    const slideshowBtn = document.getElementById('slideshowBtn');
+    const slideshowOverlay = document.getElementById('slideshowOverlay');
+    const slideshowTitle = document.getElementById('slideshowTitle');
+    const slideshowText = document.getElementById('slideshowText');
+    const slideshowVisual = document.getElementById('slideshowVisual');
+    const prevSlideShowBtn = document.getElementById('prevSlideShowBtn');
+    const nextSlideShowBtn = document.getElementById('nextSlideShowBtn');
+    const closeSlideshowBtn = document.getElementById('closeSlideshowBtn');
+    const generatingModal = document.getElementById('generatingModal');
+    const generatingStatus = document.getElementById('generatingStatus');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    const backToLandingBtn = document.getElementById('backToLandingBtn');
+    const applyDesignBtn = document.getElementById('applyDesignBtn');
+
+    // --- ДИЗАЙНЫ ---
+    const designs = [
+        { name: 'Аметист', gradient: 'linear-gradient(135deg, #7c3aed, #a855f7)', object: 'gem', icon: 'fa-gem' },
+        { name: 'Океан', gradient: 'linear-gradient(135deg, #06b6d4, #3b82f6)', object: 'water', icon: 'fa-water' },
+        { name: 'Закат', gradient: 'linear-gradient(135deg, #f59e0b, #ef4444)', object: 'sun', icon: 'fa-sun' },
+        { name: 'Лес', gradient: 'linear-gradient(135deg, #10b981, #34d399)', object: 'leaf', icon: 'fa-leaf' },
+        { name: 'Космос', gradient: 'linear-gradient(135deg, #1e1b4b, #312e81)', object: 'rocket', icon: 'fa-rocket' },
+        { name: 'Неон', gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)', object: 'bolt', icon: 'fa-bolt' }
+    ];
+
+    function renderDesigns() {
+        designGrid.innerHTML = designs.map((d, i) => `
+            <div class="design-card ${i===0?'active':''}" data-index="${i}">
+                <div class="design-preview" style="background: ${d.gradient};">
+                    <i class="fas ${d.icon}"></i>
                 </div>
+                <div class="design-name">${d.name}</div>
             </div>
-            <div class="panel-section">
-                <div class="panel-title">Формат фона</div>
-                <input type="color" class="panel-input" id="bgColorInput" value="#ffffff">
-                <label style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
-                    <input type="checkbox" id="darkModeCheck"> Тёмная тема
-                </label>
+        `).join('');
+        document.querySelectorAll('.design-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.design-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                const idx = card.dataset.index;
+                selectedDesign = { ...designs[idx] };
+                selectedDesign.bg = '#ffffff'; // базовый белый фон слайда
+            });
+        });
+        selectedDesign = { ...designs[0], bg: '#ffffff' };
+    }
+    renderDesigns();
+
+    // --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
+    function showToast(msg, isGood = true) {
+        toastMessage.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function renderSlidesList() {
+        if (!presentationData.slides.length) {
+            slidesList.innerHTML = '<p style="padding:20px;text-align:center;color:#999;">Нет слайдов</p>';
+            return;
+        }
+        slidesList.innerHTML = presentationData.slides.map((s, i) => `
+            <div class="slide-thumb ${i===currentSlideIndex?'active':''}" data-index="${i}">
+                <div class="slide-thumb-title">${s.title || 'Без названия'}</div>
+                <div class="slide-thumb-content">${(s.content || '').substring(0,40)}...</div>
             </div>
-        </div>
-    </div>
-
-    <!-- Модалка для новой презентации -->
-    <div class="modal-overlay" id="newPresentationModal">
-        <div class="modal">
-            <h3>Создать презентацию</h3>
-            <p style="margin-bottom: 16px; color: #4b5563;">Введите тему, и Ametist найдёт информацию в Википедии</p>
-            <input type="text" class="modal-input" id="newTopicInput" placeholder="Например: Искусственный интеллект">
-            <div class="modal-actions">
-                <button class="modal-btn secondary" id="cancelNewBtn">Отмена</button>
-                <button class="modal-btn primary" id="createNewBtn">Создать</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модалка генерации (статус) -->
-    <div class="modal-overlay" id="generatingModal">
-        <div class="modal">
-            <h3 id="generatingTitle">Генерация презентации</h3>
-            <div id="generatingContent">
-                <div class="loading-spinner"></div>
-                <p class="status-text" id="generatingStatus">Поиск информации в Википедии...</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Тосты -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMessage">Готово</span>
-    </div>
-
-    <!-- Библиотеки -->
-    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-        (function(){
-            "use strict";
-
-            // Состояние приложения
-            let presentationData = {
-                title: 'Новая презентация',
-                slides: []
-            };
-            let currentSlideIndex = -1;
-            let currentLayout = 'title-content';
-
-            // DOM элементы
-            const slidesList = document.getElementById('slidesList');
-            const slideTitle = document.getElementById('slideTitle');
-            const slideText = document.getElementById('slideText');
-            const slideVisual = document.getElementById('slideVisual');
-            const slideCanvas = document.getElementById('slideCanvas');
-            const topicInput = document.getElementById('topicInput');
-            const generateBtn = document.getElementById('generateBtn');
-            const newPresentationBtn = document.getElementById('newPresentationBtn');
-            const newPresentationModal = document.getElementById('newPresentationModal');
-            const newTopicInput = document.getElementById('newTopicInput');
-            const cancelNewBtn = document.getElementById('cancelNewBtn');
-            const createNewBtn = document.getElementById('createNewBtn');
-            const generatingModal = document.getElementById('generatingModal');
-            const generatingTitle = document.getElementById('generatingTitle');
-            const generatingStatus = document.getElementById('generatingStatus');
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            const addSlideRibbonBtn = document.getElementById('addSlideRibbonBtn');
-            const exportPptxRibbonBtn = document.getElementById('exportPptxRibbonBtn');
-            const exportPdfRibbonBtn = document.getElementById('exportPdfRibbonBtn');
-            const layoutOptions = document.querySelectorAll('.layout-option');
-            const bgColorInput = document.getElementById('bgColorInput');
-            const darkModeCheck = document.getElementById('darkModeCheck');
-
-            // Инициализация пустой презентации
-            function initEmptyPresentation() {
-                presentationData = {
-                    title: 'Новая презентация',
-                    slides: [{
-                        title: 'Заголовок слайда',
-                        content: 'Основной текст слайда...',
-                        visualIcon: 'fa-image',
-                        layout: 'title-content',
-                        notes: ''
-                    }]
-                };
-                currentSlideIndex = 0;
+        `).join('');
+        document.querySelectorAll('.slide-thumb').forEach(el => {
+            el.addEventListener('click', () => {
+                currentSlideIndex = parseInt(el.dataset.index);
+                renderSlideToCanvas();
                 renderSlidesList();
-                renderSlide();
-            }
-
-            // Рендер списка слайдов
-            function renderSlidesList() {
-                if (!presentationData.slides.length) {
-                    slidesList.innerHTML = '<p style="text-align: center; color: #9ca3af; padding: 20px;">Нет слайдов</p>';
-                    return;
-                }
-                slidesList.innerHTML = presentationData.slides.map((slide, idx) => `
-                    <div class="slide-thumb ${idx === currentSlideIndex ? 'active' : ''}" data-index="${idx}">
-                        <div class="slide-thumb-preview">
-                            <div class="slide-thumb-title">${slide.title || 'Без названия'}</div>
-                            <div class="slide-thumb-content">${(slide.content || '').substring(0, 60)}...</div>
-                        </div>
-                    </div>
-                `).join('');
-                
-                document.querySelectorAll('.slide-thumb').forEach(thumb => {
-                    thumb.addEventListener('click', () => {
-                        currentSlideIndex = parseInt(thumb.dataset.index);
-                        renderSlidesList();
-                        renderSlide();
-                    });
-                });
-            }
-
-            // Рендер текущего слайда
-            function renderSlide() {
-                if (currentSlideIndex < 0 || !presentationData.slides[currentSlideIndex]) return;
-                const slide = presentationData.slides[currentSlideIndex];
-                slideTitle.textContent = slide.title || 'Заголовок слайда';
-                slideText.textContent = slide.content || 'Основной текст слайда...';
-                
-                // Обновляем визуальный элемент
-                const icon = slide.visualIcon || 'fa-image';
-                slideVisual.innerHTML = `<i class="fas ${icon}"></i>`;
-                
-                // Применяем макет
-                currentLayout = slide.layout || 'title-content';
-                updateLayout(currentLayout);
-                
-                // Обновляем активный макет в панели
-                layoutOptions.forEach(opt => {
-                    opt.classList.remove('active');
-                    if (opt.dataset.layout === currentLayout) {
-                        opt.classList.add('active');
-                    }
-                });
-            }
-
-            // Обновление макета
-            function updateLayout(layout) {
-                const slideContentArea = document.getElementById('slideContentArea');
-                if (!slideContentArea) return;
-                
-                currentLayout = layout;
-                if (presentationData.slides[currentSlideIndex]) {
-                    presentationData.slides[currentSlideIndex].layout = layout;
-                }
-                
-                // Обновляем классы для разных макетов
-                slideCanvas.className = 'slide-canvas';
-                if (layout === 'title-only') {
-                    slideContentArea.style.display = 'none';
-                } else {
-                    slideContentArea.style.display = 'flex';
-                    if (layout === 'title-visual') {
-                        slideContentArea.style.flexDirection = 'column';
-                        slideContentArea.style.alignItems = 'center';
-                    } else if (layout === 'two-content') {
-                        slideContentArea.style.flexDirection = 'row';
-                        slideContentArea.style.gap = '32px';
-                    } else {
-                        slideContentArea.style.flexDirection = 'row';
-                        slideContentArea.style.alignItems = 'flex-start';
-                    }
-                }
-            }
-
-            // Функция для показа тоста
-            function showToast(text, icon = 'check-circle') {
-                toastMessage.textContent = text;
-                document.querySelector('#toast i').className = `fas fa-${icon}`;
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 3000);
-            }
-
-            // Поиск в Википедии
-            async function searchWikipedia(topic) {
-                const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(topic)}&format=json&origin=*`;
-                const response = await fetch(searchUrl);
-                const data = await response.json();
-                return data.query.search;
-            }
-
-            // Получение содержания страницы
-            async function getPageContent(pageId) {
-                const contentUrl = `https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&explaintext=1&pageids=${pageId}&format=json&origin=*`;
-                const response = await fetch(contentUrl);
-                const data = await response.json();
-                const page = data.query.pages[pageId];
-                return page.extract;
-            }
-
-            // Генерация введения с помощью AI (симуляция)
-            function generateIntro(topic, summary) {
-                return `Введение в тему "${topic}". ${summary.substring(0, 200)}... В этой презентации мы рассмотрим ключевые аспекты и современные тенденции.`;
-            }
-
-            // Генерация заключения с помощью AI (симуляция)
-            function generateConclusion(topic, summary) {
-                return `Подводя итоги, можно сказать, что тема "${topic}" является актуальной и перспективной. ${summary.substring(0, 150)}... Благодарю за внимание!`;
-            }
-
-            // Создание структуры слайдов на основе контента
-            function createSlidesFromContent(topic, summary) {
-                const slides = [];
-                const sentences = summary.split('. ').filter(s => s.length > 20);
-                
-                // Введение
-                slides.push({
-                    title: 'Введение',
-                    content: generateIntro(topic, summary),
-                    visualIcon: 'fa-flag',
-                    layout: 'title-content',
-                    notes: ''
-                });
-                
-                // Основные слайды (до 5)
-                const mainSlidesCount = Math.min(5, Math.max(2, Math.floor(sentences.length / 3)));
-                for (let i = 0; i < mainSlidesCount; i++) {
-                    const startIdx = i * Math.floor(sentences.length / mainSlidesCount);
-                    const endIdx = Math.min(startIdx + 3, sentences.length);
-                    const slideContent = sentences.slice(startIdx, endIdx).join('. ') + '.';
-                    const titles = ['Ключевые аспекты', 'Основные понятия', 'Анализ', 'Тенденции', 'Перспективы'];
-                    slides.push({
-                        title: titles[i % titles.length],
-                        content: slideContent,
-                        visualIcon: ['fa-chart-bar', 'fa-lightbulb', 'fa-cog', 'fa-chart-line', 'fa-rocket'][i % 5],
-                        layout: 'title-content',
-                        notes: ''
-                    });
-                }
-                
-                // Заключение
-                slides.push({
-                    title: 'Заключение',
-                    content: generateConclusion(topic, summary),
-                    visualIcon: 'fa-check-circle',
-                    layout: 'title-content',
-                    notes: ''
-                });
-                
-                return slides;
-            }
-
-            // Основная функция генерации
-            async function generatePresentation(topic) {
-                generatingModal.classList.add('active');
-                generatingTitle.textContent = `Генерация презентации: ${topic}`;
-                
-                try {
-                    generatingStatus.textContent = 'Поиск информации в Википедии...';
-                    const searchResults = await searchWikipedia(topic);
-                    
-                    if (!searchResults.length) {
-                        throw new Error('Ничего не найдено по теме');
-                    }
-                    
-                    generatingStatus.textContent = `Найдено: ${searchResults[0].title}. Загрузка содержания...`;
-                    const pageId = searchResults[0].pageid;
-                    const summary = await getPageContent(pageId);
-                    
-                    generatingStatus.textContent = 'Анализ информации и создание структуры...';
-                    await new Promise(r => setTimeout(r, 800));
-                    
-                    generatingStatus.textContent = 'Генерация слайдов...';
-                    const slides = createSlidesFromContent(topic, summary);
-                    
-                    presentationData = {
-                        title: `Презентация: ${topic}`,
-                        slides: slides
-                    };
-                    currentSlideIndex = 0;
-                    
-                    renderSlidesList();
-                    renderSlide();
-                    
-                    generatingModal.classList.remove('active');
-                    showToast(`Презентация "${topic}" создана! ${slides.length} слайдов`, 'magic');
-                    
-                } catch (error) {
-                    generatingModal.classList.remove('active');
-                    showToast('Ошибка: ' + error.message, 'exclamation-circle');
-                    console.error(error);
-                    
-                    // Создаём тестовую презентацию при ошибке
-                    const testSlides = [];
-                    for (let i = 0; i < 5; i++) {
-                        testSlides.push({
-                            title: i === 0 ? 'Введение' : (i === 4 ? 'Заключение' : `Раздел ${i}`),
-                            content: `Содержимое слайда ${i+1} по теме "${topic}".`,
-                            visualIcon: ['fa-flag', 'fa-chart-bar', 'fa-lightbulb', 'fa-cog', 'fa-check-circle'][i],
-                            layout: 'title-content',
-                            notes: ''
-                        });
-                    }
-                    presentationData = {
-                        title: `Презентация: ${topic}`,
-                        slides: testSlides
-                    };
-                    currentSlideIndex = 0;
-                    renderSlidesList();
-                    renderSlide();
-                    showToast('Создана тестовая презентация (API Википедии недоступен)', 'info-circle');
-                }
-            }
-
-            // Экспорт в PPTX
-            function exportToPptx() {
-                try {
-                    const PptxGenJS = window.PptxGenJS;
-                    const pptx = new PptxGenJS();
-                    
-                    presentationData.slides.forEach(slide => {
-                        const pptSlide = pptx.addSlide();
-                        pptSlide.addText(slide.title, { x: 0.5, y: 0.5, w: 9, h: 1, fontSize: 24, bold: true });
-                        pptSlide.addText(slide.content, { x: 0.5, y: 1.5, w: 5, h: 4, fontSize: 14 });
-                        if (slide.notes) {
-                            pptSlide.addNotes(slide.notes);
-                        }
-                    });
-                    
-                    pptx.writeFile({ fileName: `${presentationData.title.replace(/[^a-zа-яё0-9]/gi,'_')}.pptx` });
-                    showToast('Презентация экспортирована в PPTX', 'file-powerpoint');
-                } catch (error) {
-                    showToast('Ошибка экспорта в PPTX', 'exclamation-circle');
-                    console.error(error);
-                }
-            }
-
-            // Экспорт в PDF
-            function exportToPdf() {
-                try {
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF();
-                    
-                    presentationData.slides.forEach((slide, idx) => {
-                        if (idx > 0) doc.addPage();
-                        doc.setFontSize(24);
-                        doc.text(slide.title, 20, 30);
-                        doc.setFontSize(12);
-                        const lines = doc.splitTextToSize(slide.content, 170);
-                        doc.text(lines, 20, 50);
-                    });
-                    
-                    doc.save(`${presentationData.title.replace(/[^a-zа-яё0-9]/gi,'_')}.pdf`);
-                    showToast('Презентация экспортирована в PDF', 'file-pdf');
-                } catch (error) {
-                    showToast('Ошибка экспорта в PDF', 'exclamation-circle');
-                    console.error(error);
-                }
-            }
-
-            // Обработчики событий
-            generateBtn.addEventListener('click', () => {
-                const topic = topicInput.value.trim();
-                if (!topic) {
-                    showToast('Введите тему презентации', 'exclamation-circle');
-                    return;
-                }
-                generatePresentation(topic);
             });
+        });
+    }
 
-            newPresentationBtn.addEventListener('click', () => {
-                newPresentationModal.classList.add('active');
-                newTopicInput.focus();
+    function renderSlideToCanvas() {
+        if (currentSlideIndex < 0 || !presentationData.slides[currentSlideIndex]) return;
+        const slide = presentationData.slides[currentSlideIndex];
+        slideTitle.textContent = slide.title || 'Заголовок';
+        slideText.textContent = slide.content || 'Текст слайда';
+        const visualIcon = slide.visualIcon || selectedDesign.icon || 'fa-image';
+        slideVisual.innerHTML = `<i class="fas ${visualIcon}"></i>`;
+        layoutSelect.value = slide.layout || 'title-content';
+        updateLayout(slide.layout || 'title-content');
+        // Применяем дизайн к канвасу
+        if (selectedDesign.gradient) {
+            slideCanvas.style.background = selectedDesign.gradient;
+        } else {
+            slideCanvas.style.background = bgColorInput.value;
+        }
+    }
+
+    function updateLayout(layout) {
+        const contentArea = document.getElementById('slideContentArea');
+        if (layout === 'title-only') {
+            contentArea.style.display = 'none';
+        } else {
+            contentArea.style.display = 'flex';
+            if (layout === 'title-visual') {
+                contentArea.style.flexDirection = 'column';
+                contentArea.style.alignItems = 'center';
+            } else {
+                contentArea.style.flexDirection = 'row';
+                contentArea.style.alignItems = 'flex-start';
+            }
+        }
+    }
+
+    // --- ГЕНЕРАЦИЯ ИЗ ВИКИПЕДИИ (РУ) ---
+    async function searchWikipediaRU(topic) {
+        const url = `https://ru.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(topic)}&format=json&origin=*`;
+        const resp = await fetch(url);
+        const data = await resp.json();
+        return data.query.search;
+    }
+    async function getPageContentRU(pageId) {
+        const url = `https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&explaintext=1&pageids=${pageId}&format=json&origin=*`;
+        const resp = await fetch(url);
+        const data = await resp.json();
+        return data.query.pages[pageId].extract;
+    }
+
+    function generateSlidesFromText(topic, summary) {
+        const slides = [];
+        // Введение
+        slides.push({
+            title: 'Введение',
+            content: `${topic} — ${summary.split('.')[0]}.`,
+            visualIcon: 'fa-flag',
+            layout: 'title-content'
+        });
+        // Основные слайды (из предложений)
+        const sentences = summary.split('. ').filter(s => s.length > 30);
+        const count = Math.min(5, Math.max(2, Math.floor(sentences.length / 2)));
+        for (let i=0; i<count; i++) {
+            const start = Math.floor(i * sentences.length / count);
+            const end = Math.floor((i+1) * sentences.length / count);
+            const content = sentences.slice(start, end).join('. ') + '.';
+            const titles = ['Ключевые факты', 'История', 'Достижения', 'Влияние', 'Интересные данные'];
+            slides.push({
+                title: titles[i % titles.length],
+                content: content,
+                visualIcon: ['fa-star', 'fa-landmark', 'fa-trophy', 'fa-globe', 'fa-lightbulb'][i%5],
+                layout: 'title-content'
             });
+        }
+        // Заключение
+        slides.push({
+            title: 'Заключение',
+            content: `Таким образом, ${topic} остаётся значимой темой. ${summary.split('.')[summary.split('.').length-2]}.`,
+            visualIcon: 'fa-check-circle',
+            layout: 'title-content'
+        });
+        return slides;
+    }
 
-            cancelNewBtn.addEventListener('click', () => {
-                newPresentationModal.classList.remove('active');
-            });
+    async function generatePresentation(topic) {
+        generatingModal.classList.add('active');
+        generatingStatus.textContent = 'Поиск в русской Википедии...';
+        try {
+            const search = await searchWikipediaRU(topic);
+            if (!search.length) throw new Error('Ничего не найдено');
+            const pageId = search[0].pageid;
+            generatingStatus.textContent = `Загрузка статьи "${search[0].title}"...`;
+            const extract = await getPageContentRU(pageId);
+            generatingStatus.textContent = 'Создание структуры слайдов...';
+            const slides = generateSlidesFromText(topic, extract);
+            presentationData = { title: topic, slides };
+            currentSlideIndex = 0;
+            renderSlidesList();
+            renderSlideToCanvas();
+            generatingModal.classList.remove('active');
+            showToast(`Презентация "${topic}" создана!`);
+        } catch(e) {
+            generatingModal.classList.remove('active');
+            showToast('Ошибка: ' + e.message);
+            // fallback
+            presentationData = { title: topic, slides: [
+                { title: 'Введение', content: 'Пример слайда', visualIcon:'fa-flag', layout:'title-content' },
+                { title: 'Заключение', content: 'Спасибо за внимание', visualIcon:'fa-check', layout:'title-content' }
+            ]};
+            currentSlideIndex = 0;
+            renderSlidesList();
+            renderSlideToCanvas();
+        }
+    }
 
-            createNewBtn.addEventListener('click', async () => {
-                const topic = newTopicInput.value.trim();
-                if (!topic) {
-                    showToast('Введите тему', 'exclamation-circle');
-                    return;
-                }
-                newPresentationModal.classList.remove('active');
-                await generatePresentation(topic);
-            });
+    // --- ПЕРЕХОД К РЕДАКТОРУ ---
+    function startEditor(topic) {
+        landing.classList.add('hidden');
+        app.classList.add('visible');
+        generatePresentation(topic);
+    }
 
-            addSlideRibbonBtn.addEventListener('click', () => {
-                if (!presentationData.slides.length) {
-                    initEmptyPresentation();
-                    return;
-                }
-                const newSlide = {
-                    title: 'Новый слайд',
-                    content: 'Содержимое нового слайда...',
-                    visualIcon: 'fa-file',
-                    layout: 'title-content',
-                    notes: ''
-                };
-                presentationData.slides.push(newSlide);
-                currentSlideIndex = presentationData.slides.length - 1;
-                renderSlidesList();
-                renderSlide();
-                showToast('Новый слайд добавлен', 'plus-circle');
-            });
+    landingGenerate.addEventListener('click', () => {
+        const topic = landingTopic.value.trim();
+        if (!topic) { showToast('Введите тему'); return; }
+        startEditor(topic);
+    });
 
-            exportPptxRibbonBtn.addEventListener('click', exportToPptx);
-            exportPdfRibbonBtn.addEventListener('click', exportToPdf);
+    // --- ЭКСПОРТ В PPTX (рабочий) ---
+    function exportPPTX() {
+        const PptxGenJS = window.PptxGenJS;
+        const pptx = new PptxGenJS();
+        pptx.defineLayout({ name:'CUSTOM', width:10, height:5.625 }); // 16:9
+        pptx.layout = 'CUSTOM';
+        presentationData.slides.forEach(slide => {
+            const s = pptx.addSlide();
+            s.background = { fill: selectedDesign.gradient ? selectedDesign.gradient : bgColorInput.value };
+            s.addText(slide.title, { x:0.5, y:0.5, w:9, h:1, fontSize:24, bold:true, color:'2e1065' });
+            if (slide.layout !== 'title-only') {
+                s.addText(slide.content, { x:0.5, y:1.5, w:5.5, h:3.5, fontSize:14, color:'4b5563' });
+            }
+            // иконка как текст (упрощённо)
+        });
+        pptx.writeFile({ fileName: `${presentationData.title.replace(/\s/g,'_')}.pptx` });
+        showToast('PPTX файл готов!');
+    }
 
-            // Обработчики макетов
-            layoutOptions.forEach(opt => {
-                opt.addEventListener('click', () => {
-                    const layout = opt.dataset.layout;
-                    layoutOptions.forEach(o => o.classList.remove('active'));
-                    opt.classList.add('active');
-                    updateLayout(layout);
-                });
-            });
+    function exportPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'landscape', unit: 'in', format: [10, 5.625] });
+        presentationData.slides.forEach((slide, i) => {
+            if (i>0) doc.addPage();
+            doc.setFontSize(24);
+            doc.text(slide.title, 0.5, 0.8);
+            doc.setFontSize(12);
+            const lines = doc.splitTextToSize(slide.content, 9);
+            doc.text(lines, 0.5, 1.5);
+        });
+        doc.save(`${presentationData.title.replace(/\s/g,'_')}.pdf`);
+        showToast('PDF файл готов!');
+    }
 
-            // Обработчики изменения фона
-            bgColorInput.addEventListener('input', (e) => {
-                slideCanvas.style.backgroundColor = e.target.value;
-            });
+    exportPptxBtn.addEventListener('click', exportPPTX);
+    exportPdfBtn.addEventListener('click', exportPDF);
 
-            darkModeCheck.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    slideCanvas.style.backgroundColor = '#1e1b2b';
-                    slideCanvas.style.color = '#f3f4f6';
-                } else {
-                    slideCanvas.style.backgroundColor = bgColorInput.value;
-                    slideCanvas.style.color = '#1e1b2b';
-                }
-            });
+    // --- СЛАЙД-ШОУ ---
+    function openSlideshow() {
+        slideshowIndex = currentSlideIndex;
+        updateSlideshowSlide();
+        slideshowOverlay.style.display = 'flex';
+    }
+    function updateSlideshowSlide() {
+        const slide = presentationData.slides[slideshowIndex];
+        slideshowTitle.textContent = slide.title;
+        slideshowText.textContent = slide.content;
+        slideshowVisual.innerHTML = `<i class="fas ${slide.visualIcon || 'fa-image'}"></i>`;
+        if (selectedDesign.gradient) {
+            document.getElementById('slideshowContainer').style.background = selectedDesign.gradient;
+        } else {
+            document.getElementById('slideshowContainer').style.background = bgColorInput.value;
+        }
+    }
+    slideshowBtn.addEventListener('click', openSlideshow);
+    closeSlideshowBtn.addEventListener('click', ()=> slideshowOverlay.style.display = 'none');
+    prevSlideShowBtn.addEventListener('click', ()=>{
+        if (slideshowIndex>0) { slideshowIndex--; updateSlideshowSlide(); }
+    });
+    nextSlideShowBtn.addEventListener('click', ()=>{
+        if (slideshowIndex < presentationData.slides.length-1) { slideshowIndex++; updateSlideshowSlide(); }
+    });
+    // Клавиши
+    document.addEventListener('keydown', (e) => {
+        if (slideshowOverlay.style.display === 'flex') {
+            if (e.key === 'ArrowLeft') { if(slideshowIndex>0){ slideshowIndex--; updateSlideshowSlide(); } e.preventDefault(); }
+            if (e.key === 'ArrowRight') { if(slideshowIndex < presentationData.slides.length-1){ slideshowIndex++; updateSlideshowSlide(); } e.preventDefault(); }
+            if (e.key === 'Escape') slideshowOverlay.style.display = 'none';
+        }
+    });
 
-            // Сохранение изменений при редактировании
-            slideTitle.addEventListener('input', () => {
-                if (currentSlideIndex >= 0 && presentationData.slides[currentSlideIndex]) {
-                    presentationData.slides[currentSlideIndex].title = slideTitle.textContent;
-                    renderSlidesList();
-                }
-            });
+    // --- РЕДАКТИРОВАНИЕ ---
+    slideTitle.addEventListener('input', () => {
+        if (currentSlideIndex>=0) presentationData.slides[currentSlideIndex].title = slideTitle.textContent;
+        renderSlidesList();
+    });
+    slideText.addEventListener('input', () => {
+        if (currentSlideIndex>=0) presentationData.slides[currentSlideIndex].content = slideText.textContent;
+        renderSlidesList();
+    });
+    layoutSelect.addEventListener('change', (e) => {
+        if (currentSlideIndex>=0) {
+            presentationData.slides[currentSlideIndex].layout = e.target.value;
+            updateLayout(e.target.value);
+        }
+    });
+    bgColorInput.addEventListener('input', (e) => {
+        slideCanvas.style.background = e.target.value;
+        selectedDesign.gradient = null; // убираем градиент при ручной смене
+    });
+    addSlideBtn.addEventListener('click', () => {
+        const newSlide = { title: 'Новый слайд', content: 'Текст...', visualIcon: 'fa-file', layout: 'title-content' };
+        presentationData.slides.push(newSlide);
+        currentSlideIndex = presentationData.slides.length-1;
+        renderSlidesList();
+        renderSlideToCanvas();
+    });
+    backToLandingBtn.addEventListener('click', () => {
+        app.classList.remove('visible');
+        landing.classList.remove('hidden');
+    });
+    applyDesignBtn.addEventListener('click', () => {
+        if (selectedDesign.gradient) slideCanvas.style.background = selectedDesign.gradient;
+        else slideCanvas.style.background = bgColorInput.value;
+        // обновить иконку по дизайну
+        if (currentSlideIndex>=0) {
+            presentationData.slides[currentSlideIndex].visualIcon = selectedDesign.icon;
+            slideVisual.innerHTML = `<i class="fas ${selectedDesign.icon}"></i>`;
+        }
+    });
 
-            slideText.addEventListener('input', () => {
-                if (currentSlideIndex >= 0 && presentationData.slides[currentSlideIndex]) {
-                    presentationData.slides[currentSlideIndex].content = slideText.textContent;
-                    renderSlidesList();
-                }
-            });
+    // Инициализация пустой презентации при старте
+    presentationData = { title: 'Новая презентация', slides: [{ title:'Заголовок', content:'Текст', visualIcon:'fa-image', layout:'title-content' }] };
+    currentSlideIndex = 0;
+    renderSlidesList();
+    renderSlideToCanvas();
 
-            // Переключение вкладок ленты
-            document.querySelectorAll('.ribbon-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.ribbon-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    // В реальном приложении здесь менялось бы содержимое панели
-                });
-            });
+    // Закрытие модалок по клику
+    window.addEventListener('click', (e) => {
+        if (e.target === generatingModal) generatingModal.classList.remove('active');
+    });
 
-            // Закрытие модалок по клику на оверлей
-            document.querySelectorAll('.modal-overlay').forEach(modal => {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.classList.remove('active');
-                    }
-                });
-            });
-
-            // Инициализация
-            initEmptyPresentation();
-            showToast('Добро пожаловать в Ametist! Введите тему для генерации.', 'gem');
-
-        })();
-    </script>
+})();
+</script>
 </body>
 </html>
